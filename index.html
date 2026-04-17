@@ -89,7 +89,21 @@
   .logo-mark { width: 32px; height: 32px; border-radius: 8px; background: var(--ink); color: var(--accent); font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; display: inline-flex; align-items: center; justify-content: center; line-height: 1; }
 
   nav.top ul { display: none; list-style: none; margin: 0; padding: 0; gap: 32px; }
-  @media (min-width: 768px) { nav.top ul { display: flex; } }
+  @media (min-width: 900px) { nav.top ul { display: flex; } }
+
+  /* Mobile menu */
+  .burger { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--rule); border-radius: 999px; cursor: pointer; margin-left: 8px; }
+  .burger svg { width: 16px; height: 16px; color: var(--ink); }
+  @media (min-width: 900px) { .burger { display: none; } }
+  .drawer { position: fixed; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 24px; transform: translateY(-110%); transition: transform .4s cubic-bezier(.16,1,.3,1); z-index: 49; }
+  .drawer.open { transform: translateY(0); }
+  .drawer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .drawer a { display: block; padding: 16px 0; font-family: 'Instrument Serif', serif; font-size: 28px; line-height: 1; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); letter-spacing: -0.02em; }
+  .drawer a:last-child { border-bottom: 0; }
+  .drawer a:hover { color: var(--accent); }
+  body.no-scroll { overflow: hidden; }
+  .hide-mobile { display: none; }
+  @media (min-width: 640px) { .hide-mobile { display: inline; } }
   nav.top a.link { color: var(--ink); text-decoration: none; font-size: 14px; position: relative; padding: 4px 0; }
   nav.top a.link::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.16,1,.3,1); }
   nav.top a.link:hover::after { transform: scaleX(1); }
@@ -267,11 +281,27 @@
       <li><a class="link" href="#pricing">Цены</a></li>
       <li><a class="link" href="#faq">FAQ</a></li>
     </ul>
-    <a href="https://wa.me/77785744889?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" class="pill pill-dark" rel="noopener">
-      Написать <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-    </a>
+    <div style="display:flex; align-items:center;">
+      <a href="https://wa.me/77785744889?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21" class="pill pill-dark" rel="noopener">
+        Написать <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="drawer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
   </div>
 </nav>
+
+<div class="drawer" id="drawer">
+  <ul>
+    <li><a href="#about" data-close>Обо мне</a></li>
+    <li><a href="#services" data-close>Форматы</a></li>
+    <li><a href="#cases" data-close>Результаты</a></li>
+    <li><a href="#pricing" data-close>Цены</a></li>
+    <li><a href="#faq" data-close>FAQ</a></li>
+    <li><a href="#contact" data-close>Контакты</a></li>
+  </ul>
+</div>
 
 <main id="main">
 
@@ -281,7 +311,7 @@
     <div class="meta reveal">
       <span>Salmark · Est. 2026</span>
       <span>Астана, Казахстан</span>
-      <span class="hidden md:inline">Стратегический консалтинг</span>
+      <span class="hide-mobile">Стратегический консалтинг</span>
     </div>
 
     <h1 class="reveal d-1">
@@ -651,6 +681,22 @@
 </a>
 
 <script>
+  // Mobile burger menu
+  const burger = document.getElementById('burger');
+  const drawer = document.getElementById('drawer');
+  burger?.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('no-scroll', open);
+  });
+  drawer?.querySelectorAll('[data-close]').forEach(a => {
+    a.addEventListener('click', () => {
+      drawer.classList.remove('open');
+      burger?.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+    });
+  });
+
   // Scroll reveal
   const io = new IntersectionObserver((entries) => {
     for (const e of entries) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }
