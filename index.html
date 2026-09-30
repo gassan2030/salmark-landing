@@ -2,88 +2,842 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="theme-color" content="#111111" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+<meta name="color-scheme" content="light dark" />
 
-<title>Salmark</title>
-<meta name="description" content="Сайт в разработке." />
-<meta name="robots" content="noindex, nofollow" />
+<title>Salmark — журнал тренировок для iPhone</title>
+<meta name="description" content="Записывайте подходы в зале одним касанием. Кольца недели, рекорды, карта мышц, календарь. Без интернета, без аккаунта, без рекламы." />
 <link rel="canonical" href="https://salmark.kz/" />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23111111'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='400' font-style='italic' text-anchor='middle' fill='%23c2410c' font-family='Georgia, serif'%3ES%3C/text%3E%3C/svg%3E" />
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23111111'/%3E%3Ctext x='50' y='70' font-size='58' font-weight='400' font-style='italic' text-anchor='middle' fill='%23c2410c' font-family='Georgia, serif'%3ES%3C/text%3E%3C/svg%3E" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Salmark" />
+<meta property="og:url" content="https://salmark.kz/" />
+<meta property="og:title" content="Salmark — журнал тренировок для iPhone" />
+<meta property="og:description" content="Записывайте подходы в зале одним касанием. Без интернета, без аккаунта, без рекламы." />
+<meta property="og:image" content="https://salmark.kz/assets/og.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="ru_RU" />
+<meta property="og:locale:alternate" content="kk_KZ" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://salmark.kz/assets/og.jpg" />
+
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+<link rel="preload" as="image" href="/assets/sum-light.webp" media="(prefers-color-scheme: light)" />
+<link rel="preload" as="image" href="/assets/sum-dark.webp" media="(prefers-color-scheme: dark)" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" media="print" onload="this.media='all'" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "Salmark",
+  "description": "Журнал тренировок для зала для iPhone. Работает без интернета, без аккаунта и без рекламы.",
+  "operatingSystem": "iOS",
+  "applicationCategory": "HealthApplication",
+  "inLanguage": ["ru", "kk", "en"],
+  "url": "https://salmark.kz/",
+  "image": "https://salmark.kz/assets/icon-512.png",
+  "publisher": { "@type": "Organization", "name": "ТОО «Salmark Consulting»", "url": "https://salmark.kz/" }
+}
+</script>
 
 <style>
+/* Hallmark · macrostructure: product chapters (Apple product page) · tone: austere / confident
+ * theme: custom — paper white / black, ink #1d1d1f, data accents from the app: #FF2D55 · #A6FF00 · #00E0FF
+ * display: system (SF Pro) → Inter fallback · nav: N1 wordmark + language segmented control · footer: support + legal columns
+ * pre-emit critique: P4 H5 E4 S5 R5 V4
+ */
+:root {
+  --paper: #ffffff;
+  --paper-2: #f5f5f7;
+  --paper-band: #000000;
+  --ink: #1d1d1f;
+  --ink-2: #424245;
+  --muted: #6e6e73;
+  --line: #d2d2d7;
+  --bezel: #1d1d1f;
+  --bezel-edge: #3a3a3c;
+  --on-band: #f5f5f7;
+  --on-band-muted: #a1a1a6;
+  --glass: rgba(255, 255, 255, 0.72);
+  --focus: #0071e3;
+  --red: #FF2D55;
+  --lime: #A6FF00;
+  --cyan: #00E0FF;
+  --lime-ink: #3d7a00;   /* lime tuned for text on white (contrast ≥ 4.5:1) */
+  --red-ink: #d70a3a;
+  --ring-track: rgba(0, 0, 0, 0.06);
+
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px;
+  --space-xl: 32px; --space-2xl: 48px; --space-3xl: 72px; --space-4xl: 112px; --space-5xl: 160px;
+
+  --text-sm: 0.875rem; --text-base: 1.0625rem; --text-lg: 1.25rem; --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-2xl: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+  --text-display: clamp(2.5rem, 1.4rem + 5vw, 5.25rem);
+  --text-giant: clamp(6rem, 3rem + 14vw, 15rem);
+
+  --radius-sm: 12px; --radius-md: 20px; --radius-lg: 28px; --radius-pill: 999px;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms; --dur-med: 280ms; --dur-slow: 900ms;
+  --wrap: 1120px;
+  --gutter: 20px;
+}
+@media (prefers-color-scheme: dark) {
   :root {
-    --ink: #111111;
-    --paper: #f5f2ec;
-    --muted: #8b857a;
-    --rule: #2a2a2a;
-    --accent: #c2410c;
+    --paper: #000000;
+    --paper-2: #111113;
+    --paper-band: #0c0c0e;
+    --ink: #f5f5f7;
+    --ink-2: #d2d2d7;
+    --muted: #a1a1a6;
+    --line: #2c2c2e;
+    --bezel: #2c2c2e;
+    --bezel-edge: #48484a;
+    --glass: rgba(0, 0, 0, 0.66);
+    --focus: #2997ff;
+    --lime-ink: #A6FF00;
+    --red-ink: #FF2D55;
+    --ring-track: rgba(255, 255, 255, 0.10);
   }
+}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-style: normal; overflow-wrap: anywhere; min-width: 0; text-wrap: balance; }
+p { text-wrap: pretty; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 6px; }
 
-  html, body { height: 100%; }
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 100; padding: 8px 14px; border-radius: var(--radius-pill); background: var(--ink); color: var(--paper); text-decoration: none; }
+.skip:focus { left: 12px; }
 
-  body {
-    background: var(--ink);
-    color: var(--paper);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
+.wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
 
-  main {
-    width: 100%;
-    max-width: 480px;
-    text-align: center;
-  }
+/* ── Header ─────────────────────────────── */
+.bar {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--glass);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--space-md); height: 52px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.02em; white-space: nowrap; }
+.brand img { width: 28px; height: 28px; border-radius: 7px; }
+.langs { display: inline-flex; padding: 2px; border-radius: var(--radius-pill); background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.langs button {
+  appearance: none; border: 0; margin: 0; cursor: pointer;
+  font: inherit; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0;
+  color: var(--muted); background: transparent;
+  min-width: 44px; height: 30px; padding: 0 10px; border-radius: var(--radius-pill);
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.langs button:hover { color: var(--ink); }
+.langs button:active { transform: scale(0.96); }
+.langs button[aria-pressed="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
-  .mark {
-    font-family: "Instrument Serif", Georgia, serif;
-    font-style: italic;
-    font-size: 56px;
-    line-height: 1;
-    color: var(--accent);
-  }
+/* ── Store button ───────────────────────── */
+.store {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 52px; padding: 0 26px; border-radius: var(--radius-pill);
+  background: var(--ink); color: var(--paper);
+  font-weight: 600; font-size: 1.0625rem; letter-spacing: -0.01em; text-decoration: none; white-space: nowrap;
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+.store svg { width: 18px; height: 18px; flex: none; }
+.store:not([aria-disabled="true"]):hover { opacity: 0.86; }
+.store:not([aria-disabled="true"]):active { transform: scale(0.97); }
+.store[aria-disabled="true"] { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); cursor: default; }
+.store[aria-disabled="true"] .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex: none; }
+.store:not([aria-disabled="true"]) .dot { display: none; }
 
-  h1 {
-    margin-top: 28px;
-    font-family: "Instrument Serif", Georgia, serif;
-    font-weight: 400;
-    font-size: clamp(28px, 7vw, 40px);
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-  }
+/* ── Phone ──────────────────────────────── */
+.phone {
+  margin: 0;
+  width: 100%;
+  max-width: 300px;
+  padding: 3.2%;
+  border-radius: 15.5% / 7.2%;
+  background: var(--bezel);
+  box-shadow:
+    inset 0 0 0 1px var(--bezel-edge),
+    0 2px 4px rgba(0,0,0,0.06),
+    0 30px 60px -20px rgba(0,0,0,0.28);
+}
+.phone img { width: 100%; aspect-ratio: 599 / 1304; border-radius: 12.5% / 5.8%; background: var(--paper-2); }
+.phones { display: flex; justify-content: center; align-items: flex-start; gap: clamp(12px, 3vw, 32px); }
+.phones .phone { flex: 1 1 0; min-width: 0; }
+.phones .phone:nth-child(2) { margin-top: 12%; }
 
-  .rule {
-    width: 48px;
-    height: 1px;
-    margin: 28px auto;
-    background: var(--rule);
-  }
+/* ── Hero ───────────────────────────────── */
+.hero { text-align: center; padding-block: var(--space-3xl) var(--space-2xl); }
+.hero-icon { width: 96px; height: 96px; margin: 0 auto var(--space-lg); border-radius: 22px; box-shadow: 0 10px 30px -8px rgba(0,0,0,0.35); }
+.product { font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.hero h1 {
+  margin: var(--space-sm) auto 0; max-width: 16ch;
+  font-size: var(--text-display); font-weight: 700; line-height: 1.04; letter-spacing: -0.035em;
+}
+.hero .lede { margin: var(--space-lg) auto 0; max-width: 34ch; font-size: var(--text-xl); line-height: 1.4; color: var(--muted); }
+.hero .store { margin-top: var(--space-xl); }
+.stage { position: relative; margin-top: var(--space-3xl); display: grid; place-items: center; }
+.stage .phone { position: relative; z-index: 1; max-width: 320px; }
+.orbit { position: absolute; z-index: 0; width: min(760px, 150vw); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+.orbit circle { fill: none; stroke-linecap: round; }
 
-  p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--muted);
-  }
+/* ── Chapters ───────────────────────────── */
+.chapter { padding-block: var(--space-4xl); }
+.chapter + .chapter { border-top: 1px solid var(--line); }
+.chapter.tint { background: var(--paper-2); border-top: 0; }
+.chapter.tint + .chapter { border-top: 0; }
+.head { max-width: 760px; }
+.head.center { margin-inline: auto; text-align: center; }
+.head h2 { font-size: var(--text-2xl); font-weight: 700; line-height: 1.06; letter-spacing: -0.035em; }
+.head p { margin-top: var(--space-lg); font-size: var(--text-xl); line-height: 1.45; color: var(--muted); max-width: 40ch; }
+.head.center p { margin-inline: auto; }
+.head p strong { color: var(--ink); font-weight: 600; }
+
+.split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3xl); align-items: center; }
+.split .media { display: flex; justify-content: center; }
+@media (min-width: 900px) {
+  .split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--space-4xl); }
+  .split.flip .media { order: -1; }
+}
+
+.ticks { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--line); }
+.ticks li { padding: 14px 0; border-bottom: 1px solid var(--line); font-weight: 500; display: flex; gap: 14px; align-items: baseline; }
+.ticks li::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); transform: translateY(-2px); }
+.ticks li:nth-child(3n+1)::before { background: var(--red); }
+.ticks li:nth-child(3n+2)::before { background: var(--lime); box-shadow: inset 0 0 0 1px rgba(0,0,0,0.12); }
+.ticks li:nth-child(3n)::before { background: var(--cyan); }
+@media (min-width: 600px) { .ticks { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-xl); } }
+
+/* ── Rest band (always dark) ────────────── */
+.band { background: var(--paper-band); color: var(--on-band); padding-block: var(--space-4xl); }
+.band .head p { color: var(--on-band-muted); }
+.band .shot { margin: var(--space-3xl) auto 0; max-width: 560px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 40px 80px -30px rgba(0, 224, 255, 0.25); }
+.band .shot img { width: 100%; aspect-ratio: 800 / 352; }
+.band .kicker { color: var(--cyan); }
+
+.kicker { display: block; margin-bottom: var(--space-sm); font-size: var(--text-lg); font-weight: 600; letter-spacing: -0.01em; }
+
+/* ── Rings ──────────────────────────────── */
+.rings-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3xl); align-items: center; margin-top: var(--space-3xl); }
+@media (min-width: 900px) { .rings-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.rings { display: grid; justify-items: center; gap: var(--space-xl); }
+.rings svg { width: min(340px, 80vw); height: auto; transform: rotate(-90deg); }
+.rings circle { fill: none; stroke-width: 15; stroke-linecap: round; }
+.rings .track { stroke: var(--ring-track); }
+.legend { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm) var(--space-lg); font-weight: 600; font-size: var(--text-sm); }
+.legend li { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.legend i { width: 10px; height: 10px; border-radius: 50%; }
+
+.facts { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-md); margin-top: var(--space-3xl); }
+@media (min-width: 640px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .facts { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.fact { padding: var(--space-lg); border-radius: var(--radius-md); background: var(--paper); }
+.chapter:not(.tint) .fact { background: var(--paper-2); }
+.fact h3 { font-size: var(--text-lg); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.fact p { margin-top: var(--space-xs); color: var(--muted); font-size: 0.9375rem; line-height: 1.45; }
+
+/* ── Exercises number ───────────────────── */
+.giant, .giant-sub { display: block; }
+.giant { font-size: var(--text-giant); font-weight: 800; line-height: 0.9; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
+.giant-sub { font-size: var(--text-2xl); font-weight: 700; line-height: 1.06; letter-spacing: -0.035em; margin-top: var(--space-sm); }
+
+/* ── Privacy ────────────────────────────── */
+.privacy .head h2 { font-size: var(--text-display); letter-spacing: -0.04em; line-height: 1.02; max-width: 15ch; margin-inline: auto; }
+.pills { list-style: none; padding: 0; margin: var(--space-2xl) auto 0; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-xs); max-width: 760px; }
+.pills li { padding: 10px 18px; border-radius: var(--radius-pill); background: var(--paper-2); font-weight: 600; font-size: 0.9375rem; white-space: nowrap; }
+.chapter.tint .pills li { background: var(--paper); }
+.more { display: inline-block; margin-top: var(--space-xl); font-weight: 600; color: var(--focus); text-decoration: none; white-space: nowrap; }
+.more:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── Languages ──────────────────────────── */
+.tongues { font-size: var(--text-display); font-weight: 700; line-height: 1.02; letter-spacing: -0.04em; }
+.tongues span { display: block; }
+.tongues span:nth-child(1) { color: var(--ink); }
+.tongues span:nth-child(2) { color: var(--muted); }
+.tongues span:nth-child(3) { color: color-mix(in srgb, var(--muted) 55%, var(--paper)); }
+
+/* ── Final + footer ─────────────────────── */
+.final { text-align: center; padding-block: var(--space-4xl); }
+.final img { width: 120px; height: 120px; margin: 0 auto var(--space-lg); border-radius: 27px; box-shadow: 0 16px 40px -12px rgba(0,0,0,0.4); }
+.final h2 { font-size: var(--text-display); font-weight: 700; letter-spacing: -0.04em; line-height: 1; }
+.final p { margin-top: var(--space-md); font-size: var(--text-xl); color: var(--muted); }
+.final .store { margin-top: var(--space-xl); }
+
+footer { background: var(--paper-2); color: var(--muted); font-size: var(--text-sm); padding-block: var(--space-2xl) var(--space-3xl); }
+.foot { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+@media (min-width: 760px) { .foot { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } }
+.foot h2 { font-size: var(--text-sm); font-weight: 600; color: var(--ink); margin-bottom: var(--space-xs); letter-spacing: 0; }
+.foot .tel { display: inline-block; font-size: var(--text-lg); font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+.foot .tel:hover { text-decoration: underline; text-underline-offset: 3px; }
+.foot .wa { display: inline-block; margin-top: 6px; color: var(--focus); text-decoration: none; font-weight: 500; white-space: nowrap; }
+.foot .wa:hover { text-decoration: underline; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.foot ul a { text-decoration: none; white-space: nowrap; }
+.foot ul a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.legal { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--line); }
+
+/* ── Reveal (JS only) ───────────────────── */
+html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
+html.js .reveal.in { opacity: 1; transform: none; }
+[data-ring] { stroke-dashoffset: var(--to); }
+html.js [data-ring] { transition: stroke-dashoffset 1600ms var(--ease-in-out); }
+html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { stroke-dashoffset: 100; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.js .reveal { transform: none; transition: opacity 150ms linear; }
+  html.js [data-ring] { transition: none; }
+  html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { stroke-dashoffset: var(--to); }
+}
+@media (prefers-reduced-transparency: reduce) { .bar { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+
+@media (max-width: 420px) {
+  :root { --gutter: 16px; }
+  .brand span { display: none; }
+  .hero { padding-top: var(--space-2xl); }
+  .chapter, .band, .final { padding-block: var(--space-3xl); }
+  .phones { gap: 10px; }
+}
 </style>
 </head>
 <body>
-  <main>
-    <div class="mark">S</div>
-    <h1>Сайт в разработке</h1>
-    <div class="rule"></div>
-    <p>Скоро здесь будет новая версия.</p>
-  </main>
+<a class="skip" href="#main" data-i18n="skip">Перейти к содержанию</a>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Salmark">
+      <img src="/assets/icon-512.webp" width="28" height="28" alt="" />
+      <span>Salmark</span>
+    </a>
+    <div class="langs" role="group" aria-label="Язык / Тіл / Language">
+      <button type="button" data-lang="ru" aria-pressed="true" lang="ru">Рус</button>
+      <button type="button" data-lang="kk" aria-pressed="false" lang="kk">Қаз</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">Eng</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <img class="hero-icon" src="/assets/icon-512.webp" width="96" height="96" alt="" />
+      <p class="product">Salmark</p>
+      <h1 data-i18n="hero.title">Журнал тренировок, который не мешает тренироваться.</h1>
+      <p class="lede" data-i18n="hero.sub">Для iPhone. Работает без интернета, без аккаунта и без рекламы.</p>
+      <a class="store" data-store aria-disabled="true">
+        <span class="dot" aria-hidden="true"></span>
+        <span data-i18n="store.soon">Скоро в App Store</span>
+      </a>
+      <div class="stage">
+        <svg class="orbit" viewBox="0 0 760 760" aria-hidden="true">
+          <g transform="rotate(-90 380 380)">
+            <circle cx="380" cy="380" r="360" stroke="var(--red)" stroke-width="10" pathLength="100" stroke-dasharray="100" data-ring style="--to:18; opacity:.9" />
+            <circle cx="380" cy="380" r="336" stroke="var(--lime)" stroke-width="10" pathLength="100" stroke-dasharray="100" data-ring style="--to:30; opacity:.9" />
+            <circle cx="380" cy="380" r="312" stroke="var(--cyan)" stroke-width="10" pathLength="100" stroke-dasharray="100" data-ring style="--to:42; opacity:.9" />
+          </g>
+        </svg>
+        <figure class="phone">
+          <picture>
+            <source srcset="/assets/sum-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="/assets/sum-light.webp" width="599" height="1304" fetchpriority="high" data-i18n-alt="alt.hero" alt="Экран «Сводка»: три кольца недели — тренировки, поднятые килограммы и минуты" />
+          </picture>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- One-tap logging -->
+  <section class="chapter" id="log">
+    <div class="wrap split">
+      <div class="head reveal">
+        <span class="kicker" style="color: var(--red-ink)" data-i18n="log.kicker">Тренировка</span>
+        <h2 data-i18n="log.title">Подход — одним касанием.</h2>
+        <p data-i18n="log.body">Salmark подставляет вес и повторы с прошлого раза. Сделали столько же — отметьте галочку. Больше — прокрутите колесо с цифрами, без клавиатуры.</p>
+        <ul class="ticks">
+          <li data-i18n="log.f1">Разминочные подходы — в одно касание</li>
+          <li data-i18n="log.f2">Дроп-сеты и подходы до отказа</li>
+          <li data-i18n="log.f3">Суперсеты</li>
+          <li data-i18n="log.f4">Калькулятор блинов</li>
+          <li data-i18n="log.f5">Подсказка «Пора прибавить»</li>
+          <li data-i18n="log.f6">Шаблоны тренировок</li>
+        </ul>
+      </div>
+      <div class="media phones reveal">
+        <figure class="phone"><img src="/assets/tools-warmup-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.warmup" alt="Тренировка: разминочные подходы, подсказка «Пора прибавить: +2,5 кг» и колонки кг и повторов" /></figure>
+        <figure class="phone"><img src="/assets/tools-plates-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.plates" alt="Калькулятор блинов: 77,5 кг — на каждую сторону 25 + 2,5 + 1,25" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rest timer -->
+  <section class="band" id="rest">
+    <div class="wrap">
+      <div class="head center reveal">
+        <span class="kicker" data-i18n="rest.kicker">Таймер отдыха</span>
+        <h2 data-i18n="rest.title">Отдых считается, даже когда телефон в кармане.</h2>
+        <p data-i18n="rest.body">Таймер виден на экране блокировки и в Dynamic Island. Добавьте 15 секунд или сразу переходите к следующему подходу.</p>
+      </div>
+      <figure class="shot reveal"><img src="/assets/rest-crop.webp" width="800" height="352" loading="lazy" decoding="async" data-i18n-alt="alt.rest" alt="Таймер отдыха: 0:55, кнопки «+15» и «Дальше»" /></figure>
+    </div>
+  </section>
+
+  <!-- Progress & rings -->
+  <section class="chapter tint" id="progress">
+    <div class="wrap">
+      <div class="head center reveal">
+        <span class="kicker" style="color: var(--lime-ink)" data-i18n="prog.kicker">Прогресс</span>
+        <h2 data-i18n="prog.title">Три кольца вашей недели.</h2>
+        <p data-i18n="prog.body">Тренировки, поднятые килограммы и минуты в зале. Замкните все три за неделю — получите медаль.</p>
+      </div>
+      <div class="rings-row">
+        <div class="rings reveal">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <circle class="track" cx="100" cy="100" r="88" />
+            <circle class="track" cx="100" cy="100" r="68" />
+            <circle class="track" cx="100" cy="100" r="48" />
+            <circle cx="100" cy="100" r="88" stroke="var(--red)" pathLength="100" stroke-dasharray="100" data-ring style="--to:33" />
+            <circle cx="100" cy="100" r="68" stroke="var(--lime)" pathLength="100" stroke-dasharray="100" data-ring style="--to:14" />
+            <circle cx="100" cy="100" r="48" stroke="var(--cyan)" pathLength="100" stroke-dasharray="100" data-ring style="--to:24" />
+          </svg>
+          <ul class="legend">
+            <li><i style="background: var(--red)"></i><span data-i18n="ring.w">Тренировки</span></li>
+            <li><i style="background: var(--lime)"></i><span data-i18n="ring.kg">Поднято, кг</span></li>
+            <li><i style="background: var(--cyan)"></i><span data-i18n="ring.min">Время, мин</span></li>
+          </ul>
+        </div>
+        <div class="media reveal" style="display:flex;justify-content:center">
+          <figure class="phone">
+            <picture>
+              <source srcset="/assets/p-top-dark.webp" media="(prefers-color-scheme: dark)" />
+              <img src="/assets/p-top-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.progress" alt="Экран «Прогресс»: уровень, тренировки, поднятый вес и время за месяц" />
+            </picture>
+          </figure>
+        </div>
+      </div>
+      <div class="facts">
+        <article class="fact reveal"><h3 data-i18n="p1.t">Рекорды</h3><p data-i18n="p1.d">Лучший вес, лучший подход и расчётный максимум (1ПМ) по каждому упражнению.</p></article>
+        <article class="fact reveal"><h3 data-i18n="p2.t">Графики</h3><p data-i18n="p2.d">Поднятый вес, тренировки и сила — по неделям, месяцам и за год.</p></article>
+        <article class="fact reveal"><h3 data-i18n="p3.t">Баланс нагрузки</h3><p data-i18n="p3.d">Жимы, тяги, ноги: Salmark подскажет, что отстаёт.</p></article>
+        <article class="fact reveal"><h3 data-i18n="p4.t">Календарь за год</h3><p data-i18n="p4.d">Каждый день с тренировкой — клеточка. Весь год на одном экране.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Muscle map -->
+  <section class="chapter" id="muscles">
+    <div class="wrap split flip">
+      <div class="head reveal">
+        <span class="kicker" style="color: var(--red-ink)" data-i18n="mus.kicker">Мышцы</span>
+        <h2 data-i18n="mus.title">Карта мышц за неделю.</h2>
+        <p data-i18n="mus.body">Чем больше подходов, тем ярче мышца. Сразу видно, что вы прокачали, а что пропустили.</p>
+      </div>
+      <div class="media reveal">
+        <figure class="phone">
+          <picture>
+            <source srcset="/assets/v3-body-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="/assets/v3-body-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.muscles" alt="Карта мышц за неделю: вид спереди и сзади, квадрицепсы и задняя поверхность бедра выделены ярче" />
+          </picture>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calendar -->
+  <section class="chapter tint" id="calendar">
+    <div class="wrap split">
+      <div class="head reveal">
+        <span class="kicker" style="color: var(--lime-ink)" data-i18n="cal.kicker">Календарь</span>
+        <h2 data-i18n="cal.title">Планируйте. Даже отпуск.</h2>
+        <p data-i18n="cal.body">Поставьте тренировки в календарь с повтором по дням недели и напоминанием. Забыли записать — добавьте задним числом. Отпуск или болезнь не прервут серию недель.</p>
+      </div>
+      <div class="media phones reveal">
+        <figure class="phone">
+          <picture>
+            <source srcset="/assets/cal-month-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="/assets/cal-month-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.cal" alt="Календарь месяца с отмеченными тренировками и ближайшими планами" />
+          </picture>
+        </figure>
+        <figure class="phone"><img src="/assets/cal-plan-sheet-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.plan" alt="Планирование тренировки: повтор по дням недели и напоминания" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exercises -->
+  <section class="chapter" id="exercises">
+    <div class="wrap split flip">
+      <div class="head reveal">
+        <h2><span class="giant">211</span> <span class="giant-sub" data-i18n="ex.title">упражнений с анимацией техники.</span></h2>
+        <p data-i18n="ex.body">Какие мышцы работают, как выполнять и где чаще всего ошибаются. Все рисунки — наши собственные.</p>
+      </div>
+      <div class="media reveal">
+        <figure class="phone">
+          <picture>
+            <source srcset="/assets/pose-detail-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="/assets/pose-detail-bench-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.ex" alt="Упражнение «Жим штанги лёжа»: рисунок техники и работающие мышцы" />
+          </picture>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gamification -->
+  <section class="chapter tint" id="levels">
+    <div class="wrap split">
+      <div class="head reveal">
+        <span class="kicker" style="color: var(--red-ink)" data-i18n="game.kicker">Награды</span>
+        <h2 data-i18n="game.title">100 уровней. Медали. Задание месяца.</h2>
+        <p data-i18n="game.body">Очки опыта за подходы, тренировки и рекорды. Медали за серии, кольца и особые тренировки.</p>
+      </div>
+      <div class="media reveal">
+        <figure class="phone">
+          <picture>
+            <source srcset="/assets/p-badges-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="/assets/p-badges-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.game" alt="Экран «Награды»: медали за рекорды, кольца и особые тренировки" />
+          </picture>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="chapter privacy" id="privacy">
+    <div class="wrap">
+      <div class="head center reveal">
+        <h2 data-i18n="priv.title">Ваши тренировки остаются на вашем телефоне.</h2>
+        <p data-i18n="priv.body">У Salmark нет сервера. Мы ничего не собираем и не видим.</p>
+      </div>
+      <ul class="pills reveal">
+        <li data-i18n="priv.1">Без аккаунта</li>
+        <li data-i18n="priv.2">Без рекламы</li>
+        <li data-i18n="priv.3">Работает без интернета</li>
+        <li data-i18n="priv.4">Выгрузка в CSV</li>
+        <li data-i18n="priv.5">Полное удаление данных</li>
+      </ul>
+      <div style="text-align:center"><a class="more" href="/app/privacy/" data-i18n="priv.link">Политика конфиденциальности приложения →</a></div>
+    </div>
+  </section>
+
+  <!-- Languages -->
+  <section class="chapter tint" id="languages">
+    <div class="wrap split flip">
+      <div class="head reveal">
+        <h2 class="tongues"><span lang="kk">Қазақша.</span><span lang="ru">Русский.</span><span lang="en">English.</span></h2>
+        <p data-i18n="lang.body">Приложение говорит на трёх языках. Светлая и тёмная тема, звуки и вибрация — настройте, как вам удобно.</p>
+      </div>
+      <div class="media reveal">
+        <figure class="phone"><img src="/assets/sum-kk.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.kk" alt="Экран «Сводка» на казахском языке" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final -->
+  <section class="final">
+    <div class="wrap reveal">
+      <img src="/assets/icon-512.webp" width="120" height="120" loading="lazy" alt="" />
+      <h2>Salmark</h2>
+      <p data-i18n="final.sub">Журнал тренировок для iPhone.</p>
+      <a class="store" data-store aria-disabled="true">
+        <span class="dot" aria-hidden="true"></span>
+        <span data-i18n="store.soon">Скоро в App Store</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h2 data-i18n="foot.support">Поддержка</h2>
+        <a class="tel" href="tel:+77785744889">+7 778 574 48 89</a><br />
+        <a class="wa" href="https://wa.me/77785744889" rel="noopener" data-i18n="foot.wa">Написать в WhatsApp</a>
+      </div>
+      <div>
+        <h2 data-i18n="foot.docs">Документы</h2>
+        <ul>
+          <li><a href="/app/" data-i18n="foot.help">Помощь и частые вопросы</a></li>
+          <li><a href="/app/privacy/" data-i18n="foot.appPrivacy">Конфиденциальность приложения</a></li>
+          <li><a href="/privacy/" data-i18n="foot.privacy">Политика конфиденциальности</a></li>
+          <li><a href="/terms/" data-i18n="foot.terms">Публичная оферта</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="legal" data-i18n="foot.legal">© 2026 ТОО «Salmark Consulting»</p>
+  </div>
+</footer>
+
+<script>
+/* Ссылка на App Store. Пока пусто — кнопки показывают «Скоро в App Store».
+   Когда приложение выйдет, вставьте ссылку сюда, например:
+   const APP_STORE_URL = "https://apps.apple.com/kz/app/salmark/id0000000000"; */
+const APP_STORE_URL = "";
+
+(function () {
+  var root = document.documentElement;
+  root.classList.add("js");
+
+  var I18N = {
+    kk: {
+      "meta.title": "Salmark — iPhone-ға арналған жаттығу күнделігі",
+      "meta.desc": "Залдағы сеттерді бір түртумен жазыңыз. Аптаның сақиналары, рекордтар, бұлшықет картасы, күнтізбе. Интернетсіз, аккаунтсыз, жарнамасыз.",
+      "skip": "Мазмұнға өту",
+      "hero.title": "Жаттығудан алаңдатпайтын жаттығу күнделігі.",
+      "hero.sub": "iPhone үшін. Интернетсіз, аккаунтсыз және жарнамасыз жұмыс істейді.",
+      "store.soon": "Жақында App Store-да",
+      "store.get": "App Store-дан жүктеу",
+      "log.kicker": "Жаттығу",
+      "log.title": "Сет — бір түртумен.",
+      "log.body": "Salmark өткен жолғы салмақ пен қайталауды өзі қояды. Сол қалпы орындасаңыз — белгі қойыңыз. Көбірек болса — сандар дөңгелегін айналдырыңыз, пернетақта керек емес.",
+      "log.f1": "Қыздыру сеттері — бір түртумен",
+      "log.f2": "Дроп-сеттер және шегіне дейінгі сеттер",
+      "log.f3": "Суперсеттер",
+      "log.f4": "Дискілер калькуляторы",
+      "log.f5": "«Қосатын уақыт» кеңесі",
+      "log.f6": "Жаттығу үлгілері",
+      "rest.kicker": "Демалыс таймері",
+      "rest.title": "Телефон қалтада жатса да, демалыс уақыты есептеледі.",
+      "rest.body": "Таймер құлып экранында және Dynamic Island-та көрінеді. 15 секунд қосыңыз немесе бірден келесі сетке өтіңіз.",
+      "prog.kicker": "Прогресс",
+      "prog.title": "Аптаңыздың үш сақинасы.",
+      "prog.body": "Жаттығулар, көтерілген салмақ және залдағы минуттар. Бір аптада үшеуін де жабыңыз — медаль аласыз.",
+      "ring.w": "Жаттығулар",
+      "ring.kg": "Көтерілді, кг",
+      "ring.min": "Уақыт, мин",
+      "p1.t": "Рекордтар",
+      "p1.d": "Әр жаттығу бойынша ең ауыр салмақ, ең жақсы сет және есептік максимум (1ПМ).",
+      "p2.t": "Графиктер",
+      "p2.d": "Көтерілген салмақ, жаттығулар және күш — апта, ай және жыл бойынша.",
+      "p3.t": "Жүктеме балансы",
+      "p3.d": "Итеру, тарту, аяқ: қайсысы артта қалғанын Salmark айтып береді.",
+      "p4.t": "Жылдық күнтізбе",
+      "p4.d": "Жаттығу болған әр күн — бір шаршы. Бүкіл жыл бір экранда.",
+      "mus.kicker": "Бұлшықеттер",
+      "mus.title": "Аптадағы бұлшықеттер картасы.",
+      "mus.body": "Сет неғұрлым көп болса, бұлшықет соғұрлым ашық боялады. Нені жаттықтырғаныңыз, нені өткізіп алғаныңыз бірден көрінеді.",
+      "cal.kicker": "Күнтізбе",
+      "cal.title": "Алдын ала жоспарлаңыз. Демалысты да.",
+      "cal.body": "Жаттығуларды апта күндері бойынша қайталанатын етіп, еске салумен күнтізбеге қойыңыз. Жазуды ұмытып кетсеңіз — өткен күнге қосыңыз. Демалыс не ауру апталар сериясын үзбейді.",
+      "ex.title": "техникасы анимациямен көрсетілген жаттығу.",
+      "ex.body": "Қай бұлшықеттер жұмыс істейді, қалай дұрыс орындау керек және көбіне қай жерде қателеседі. Барлық суреттер — өзіміздің жұмысымыз.",
+      "game.kicker": "Марапаттар",
+      "game.title": "100 деңгей. Медальдар. Ай тапсырмасы.",
+      "game.body": "Сеттер, жаттығулар және рекордтар үшін тәжірибе ұпайлары. Сериялар, сақиналар және ерекше жаттығулар үшін медальдар.",
+      "priv.title": "Жаттығуларыңыз тек өз телефоныңызда қалады.",
+      "priv.body": "Salmark-тың сервері жоқ. Біз ештеңе жинамаймыз және ештеңе көрмейміз.",
+      "priv.1": "Аккаунтсыз",
+      "priv.2": "Жарнамасыз",
+      "priv.3": "Интернетсіз жұмыс істейді",
+      "priv.4": "CSV-ге жүктеу",
+      "priv.5": "Деректерді толық жою",
+      "priv.link": "Қолданбаның құпиялылық саясаты →",
+      "lang.body": "Қолданба үш тілде сөйлейді. Жарық және қараңғы тақырып, дыбыстар мен діріл — өзіңізге ыңғайлы етіп баптаңыз.",
+      "final.sub": "iPhone-ға арналған жаттығу күнделігі.",
+      "foot.support": "Қолдау",
+      "foot.wa": "WhatsApp-қа жазу",
+      "foot.docs": "Құжаттар",
+      "foot.help": "Көмек және жиі қойылатын сұрақтар",
+      "foot.appPrivacy": "Қолданбаның құпиялылығы",
+      "foot.privacy": "Құпиялылық саясаты",
+      "foot.terms": "Жария оферта",
+      "foot.legal": "© 2026 «Salmark Consulting» ЖШС",
+      "alt.hero": "«Жиынтық» экраны: аптаның үш сақинасы — жаттығулар, көтерілген салмақ және минуттар",
+      "alt.warmup": "Жаттығу: қыздыру сеттері, «Қосатын уақыт: +2,5 кг» кеңесі, салмақ пен қайталау бағандары",
+      "alt.plates": "Дискілер калькуляторы: 77,5 кг — әр жаққа 25 + 2,5 + 1,25",
+      "alt.rest": "Демалыс таймері: 0:55, «+15» және «Әрі қарай» батырмалары",
+      "alt.progress": "«Прогресс» экраны: деңгей, айдағы жаттығулар, көтерілген салмақ және уақыт",
+      "alt.muscles": "Аптадағы бұлшықеттер картасы: алдынан және артынан көрінісі",
+      "alt.cal": "Белгіленген жаттығулары мен жақын жоспарлары бар айлық күнтізбе",
+      "alt.plan": "Жаттығуды жоспарлау: апта күндері бойынша қайталау және еске салу",
+      "alt.ex": "«Штанганы жатып итеру» жаттығуы: техника суреті және жұмыс істейтін бұлшықеттер",
+      "alt.game": "«Марапаттар» экраны: рекордтар, сақиналар және ерекше жаттығулар үшін медальдар",
+      "alt.kk": "Қазақ тіліндегі «Жиынтық» экраны"
+    },
+    en: {
+      "meta.title": "Salmark — gym workout log for iPhone",
+      "meta.desc": "Log gym sets with a single tap. Weekly rings, personal records, muscle map, calendar. Works offline — no account, no ads.",
+      "skip": "Skip to content",
+      "hero.title": "The workout log that stays out of your way.",
+      "hero.sub": "For iPhone. Works offline — no account, no ads.",
+      "store.soon": "Coming soon to the App Store",
+      "store.get": "Download on the App Store",
+      "log.kicker": "Workout",
+      "log.title": "One tap. Set logged.",
+      "log.body": "Salmark fills in the weight and reps from last time. Did the same? Tick it off. Did more? Spin the number wheel — no keyboard needed.",
+      "log.f1": "Warm-up sets in one tap",
+      "log.f2": "Drop sets and sets to failure",
+      "log.f3": "Supersets",
+      "log.f4": "Plate calculator",
+      "log.f5": "“Time to add weight” hint",
+      "log.f6": "Workout templates",
+      "rest.kicker": "Rest timer",
+      "rest.title": "Rest keeps counting, even with your phone in your pocket.",
+      "rest.body": "The timer shows on your Lock Screen and in the Dynamic Island. Add 15 seconds, or move straight on to the next set.",
+      "prog.kicker": "Progress",
+      "prog.title": "Three rings for your week.",
+      "prog.body": "Workouts, kilograms lifted and minutes in the gym. Close all three in one week to earn a medal.",
+      "ring.w": "Workouts",
+      "ring.kg": "Lifted, kg",
+      "ring.min": "Time, min",
+      "p1.t": "Personal records",
+      "p1.d": "Heaviest weight, best set and estimated one-rep max for every exercise.",
+      "p2.t": "Charts",
+      "p2.d": "Weight lifted, workouts and strength — by week, month and year.",
+      "p3.t": "Training balance",
+      "p3.d": "Push, pull, legs: Salmark tells you what’s falling behind.",
+      "p4.t": "Year calendar",
+      "p4.d": "Every training day is a square. The whole year on one screen.",
+      "mus.kicker": "Muscles",
+      "mus.title": "Your week, muscle by muscle.",
+      "mus.body": "The more sets, the brighter the muscle. See at a glance what you worked and what you skipped.",
+      "cal.kicker": "Calendar",
+      "cal.title": "Plan ahead. Even your holidays.",
+      "cal.body": "Put workouts on the calendar, repeating on the weekdays you choose, with reminders. Forgot to log one? Add it to a past date. A holiday or sick pause won’t break your weekly streak.",
+      "ex.title": "exercises with animated technique.",
+      "ex.body": "Which muscles work, how to do it right, and where people most often go wrong. Every illustration is our own.",
+      "game.kicker": "Awards",
+      "game.title": "100 levels. Medals. A monthly challenge.",
+      "game.body": "Earn XP for sets, workouts and records. Medals for streaks, rings and special sessions.",
+      "priv.title": "Your workouts stay on your phone.",
+      "priv.body": "Salmark has no server. We don’t collect anything, and we can’t see anything.",
+      "priv.1": "No account",
+      "priv.2": "No ads",
+      "priv.3": "Works offline",
+      "priv.4": "CSV export",
+      "priv.5": "Delete all your data",
+      "priv.link": "App privacy policy →",
+      "lang.body": "The app speaks three languages. Light and dark themes, sounds and haptics — set it up your way.",
+      "final.sub": "A gym workout log for iPhone.",
+      "foot.support": "Support",
+      "foot.wa": "Message on WhatsApp",
+      "foot.docs": "Documents",
+      "foot.help": "Help and FAQ",
+      "foot.appPrivacy": "App privacy",
+      "foot.privacy": "Privacy policy",
+      "foot.terms": "Public offer",
+      "foot.legal": "© 2026 Salmark Consulting LLP",
+      "alt.hero": "Summary screen: three weekly rings — workouts, kilograms lifted and minutes",
+      "alt.warmup": "Workout screen: warm-up sets, a “time to add +2.5 kg” hint, weight and reps columns",
+      "alt.plates": "Plate calculator: 77.5 kg — 25 + 2.5 + 1.25 on each side",
+      "alt.rest": "Rest timer: 0:55 with “+15” and “Skip” buttons",
+      "alt.progress": "Progress screen: level, workouts, weight lifted and time for the month",
+      "alt.muscles": "Weekly muscle map, front and back view",
+      "alt.cal": "Month calendar with logged workouts and upcoming plans",
+      "alt.plan": "Planning a workout: repeat on weekdays and reminders",
+      "alt.ex": "Barbell bench press: technique illustration and worked muscles",
+      "alt.game": "Awards screen: medals for records, rings and special sessions",
+      "alt.kk": "Summary screen in Kazakh"
+    }
+  };
+
+  var LANGS = ["ru", "kk", "en"];
+  var textNodes = document.querySelectorAll("[data-i18n]");
+  var altNodes = document.querySelectorAll("[data-i18n-alt]");
+  var metaDesc = document.querySelector('meta[name="description"]');
+  var RU = { "meta.title": document.title, "meta.desc": metaDesc.content, "store.get": "Загрузить в App Store" };
+  textNodes.forEach(function (el) { RU[el.getAttribute("data-i18n")] = el.innerHTML; });
+  altNodes.forEach(function (el) { RU[el.getAttribute("data-i18n-alt")] = el.alt; });
+  I18N.ru = RU;
+
+  var storeKey = APP_STORE_URL ? "store.get" : "store.soon";
+  document.querySelectorAll("[data-store]").forEach(function (a) {
+    if (!APP_STORE_URL) return;
+    a.href = APP_STORE_URL;
+    a.removeAttribute("aria-disabled");
+    a.querySelector("[data-i18n]").setAttribute("data-i18n", "store.get");
+  });
+
+  function t(dict, key) { return dict[key] != null ? dict[key] : RU[key]; }
+
+  function apply(lang) {
+    var d = I18N[lang] || RU;
+    root.lang = lang;
+    document.title = t(d, "meta.title");
+    metaDesc.content = t(d, "meta.desc");
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var v = t(d, el.getAttribute("data-i18n"));
+      if (v != null) el.innerHTML = v;
+    });
+    altNodes.forEach(function (el) { el.alt = t(d, el.getAttribute("data-i18n-alt")); });
+    document.querySelectorAll(".langs button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
+    });
+  }
+
+  function initial() {
+    try {
+      var q = new URLSearchParams(location.search).get("lang");
+      if (q && LANGS.indexOf(q) > -1) return q;
+    } catch (e) {}
+    try {
+      var saved = localStorage.getItem("salmark.lang");
+      if (saved && LANGS.indexOf(saved) > -1) return saved;
+    } catch (e) {}
+    var prefs = navigator.languages || [navigator.language || "ru"];
+    for (var i = 0; i < prefs.length; i++) {
+      var p = String(prefs[i]).toLowerCase().slice(0, 2);
+      if (p === "kk") return "kk";
+      if (p === "ru") return "ru";
+      if (p === "en") return "en";
+    }
+    return "ru";
+  }
+
+  var start = initial();
+  if (start !== "ru" || APP_STORE_URL) apply(start);
+
+  document.querySelectorAll(".langs button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var lang = b.getAttribute("data-lang");
+      apply(lang);
+      try { localStorage.setItem("salmark.lang", lang); } catch (e) {}
+    });
+  });
+
+  /* Reveal on scroll */
+  var targets = document.querySelectorAll(".reveal, .rings, .orbit");
+  if (!("IntersectionObserver" in window)) {
+    targets.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+  targets.forEach(function (el) { io.observe(el); });
+})();
+</script>
 </body>
 </html>
