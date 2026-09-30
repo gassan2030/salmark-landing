@@ -6,6 +6,7 @@ COPY robots.txt /usr/share/nginx/html/robots.txt
 COPY sitemap.xml /usr/share/nginx/html/sitemap.xml
 COPY privacy /usr/share/nginx/html/privacy
 COPY terms /usr/share/nginx/html/terms
+COPY app /usr/share/nginx/html/app
 
 EXPOSE 8080
 
