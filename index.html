@@ -45,7 +45,7 @@
   "inLanguage": ["ru", "kk", "en"],
   "url": "https://salmark.kz/",
   "image": "https://salmark.kz/assets/icon-512.png",
-  "publisher": { "@type": "Organization", "name": "ТОО «Salmark Consulting»", "url": "https://salmark.kz/" }
+  "publisher": { "@type": "Organization", "name": "Salmark", "url": "https://salmark.kz/" }
 }
 </script>
 
@@ -89,6 +89,7 @@
   --radius-sm: 12px; --radius-md: 20px; --radius-lg: 28px; --radius-pill: 999px;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --spring: cubic-bezier(0.2, 0.9, 0.25, 1);
   --dur-fast: 120ms; --dur-med: 280ms; --dur-slow: 900ms;
   --wrap: 1120px;
   --gutter: 20px;
@@ -177,38 +178,103 @@ p { text-wrap: pretty; }
 .store[aria-disabled="true"] .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex: none; }
 .store:not([aria-disabled="true"]) .dot { display: none; }
 
-/* ── Phone ──────────────────────────────── */
-.phone {
-  margin: 0;
-  width: 100%;
-  max-width: 300px;
-  padding: 3.2%;
-  border-radius: 15.5% / 7.2%;
-  background: var(--bezel);
-  box-shadow:
-    inset 0 0 0 1px var(--bezel-edge),
-    0 2px 4px rgba(0,0,0,0.06),
-    0 30px 60px -20px rgba(0,0,0,0.28);
+/* ── Device (iPhone 17-style, one component for every screen) ── */
+.device {
+  --ti-1: #eceae6; --ti-2: #a9a6a0; --ti-3: #5d5b57; --ti-4: #2f2e2c;
+  margin: 0; width: 100%; max-width: 300px; position: relative;
+  container-type: inline-size;
 }
-.phone img { width: 100%; aspect-ratio: 599 / 1304; border-radius: 12.5% / 5.8%; background: var(--paper-2); }
-.phones { display: flex; justify-content: center; align-items: flex-start; gap: clamp(12px, 3vw, 32px); }
-.phones .phone { flex: 1 1 0; min-width: 0; }
-.phones .phone:nth-child(2) { margin-top: 12%; }
+.device-body {
+  position: relative;
+  padding: 0.85cqw;
+  border-radius: 14.9cqw;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,0.55), transparent 3%, transparent 97%, rgba(255,255,255,0.45)),
+    linear-gradient(160deg, var(--ti-1) 0%, var(--ti-2) 22%, var(--ti-3) 48%, var(--ti-2) 72%, var(--ti-1) 100%);
+  box-shadow:
+    inset 0 0 0 0.22cqw rgba(255,255,255,0.5),
+    inset 0 0 0 0.5cqw rgba(0,0,0,0.18),
+    0 1px 1px rgba(0,0,0,0.08),
+    0 6cqw 10cqw -4cqw rgba(0,0,0,0.30),
+    0 22cqw 34cqw -14cqw rgba(0,0,0,0.38);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.glass { background: #000; padding: 1.45cqw; border-radius: 14cqw; }
+.screen {
+  position: relative; overflow: hidden; isolation: isolate;
+  aspect-ratio: 1206 / 2622;
+  border-radius: 12.5cqw;
+  background: var(--paper-2);
+}
+.screen picture, .screen img { display: block; width: 100%; height: 100%; }
+.screen img { object-fit: cover; object-position: top center; aspect-ratio: auto; }
+.island {
+  position: absolute; z-index: 3; top: 2.55cqw; left: 50%;
+  width: 29.5cqw; height: 8.6cqw; transform: translateX(-50%);
+  background: #000; border-radius: 999px;
+  box-shadow: inset 0 0 0 0.25cqw #0a0a0a;
+}
+.island::after { /* front camera lens */
+  content: ""; position: absolute; top: 50%; right: 13%; width: 3.1cqw; height: 3.1cqw; transform: translateY(-50%);
+  border-radius: 50%; background: radial-gradient(circle at 35% 35%, #2b3140 0%, #0b0d12 60%);
+}
+.key {
+  position: absolute; width: 1.1cqw; border-radius: 0.6cqw;
+  background: linear-gradient(90deg, var(--ti-4), var(--ti-2) 45%, var(--ti-1) 60%, var(--ti-3));
+}
+.key-action { left: -0.75cqw; top: 18.5%; height: 5.8%; }
+.key-vol1   { left: -0.75cqw; top: 27%;   height: 9.2%; }
+.key-vol2   { left: -0.75cqw; top: 38.2%; height: 9.2%; }
+.key-power  { right: -0.75cqw; top: 30%;  height: 13.8%; }
+
+.phones { display: flex; justify-content: center; align-items: flex-start; gap: clamp(14px, 3vw, 36px); }
+.phones .device { flex: 1 1 0; min-width: 0; }
+.phones .device:nth-child(1) { z-index: 2; }
+.phones .device:nth-child(2) { margin-top: 14%; z-index: 1; }
+
+/* Medal shimmer — a single sweep every few seconds, only while in view */
+.device.shine .screen::after {
+  content: ""; position: absolute; inset: -10% -60%; z-index: 2; pointer-events: none;
+  background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,0.55) 50%, transparent 58%);
+  mix-blend-mode: soft-light;
+  transform: translateX(-70%); opacity: 0;
+}
+html.js .in .device.shine .screen::after { animation: sweep 5s var(--ease-in-out) 1.2s infinite; }
+@keyframes sweep { 0% { transform: translateX(-70%); opacity: 0; } 8% { opacity: 1; } 38% { transform: translateX(70%); opacity: 1; } 42%, 100% { transform: translateX(70%); opacity: 0; } }
 
 /* ── Hero ───────────────────────────────── */
-.hero { text-align: center; padding-block: var(--space-3xl) var(--space-2xl); }
-.hero-icon { width: 96px; height: 96px; margin: 0 auto var(--space-lg); border-radius: 22px; box-shadow: 0 10px 30px -8px rgba(0,0,0,0.35); }
+.hero { text-align: center; padding-block: var(--space-2xl) var(--space-2xl); }
+.hero-icon { width: 80px; height: 80px; margin: 0 auto var(--space-lg); border-radius: 22px; box-shadow: 0 10px 30px -8px rgba(0,0,0,0.35); }
 .product { font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
 .hero h1 {
-  margin: var(--space-sm) auto 0; max-width: 16ch;
-  font-size: var(--text-display); font-weight: 700; line-height: 1.04; letter-spacing: -0.035em;
+  margin: var(--space-xs) auto 0; max-width: 18ch;
+  font-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.5rem); font-weight: 700; line-height: 1.04; letter-spacing: -0.035em;
 }
-.hero .lede { margin: var(--space-lg) auto 0; max-width: 34ch; font-size: var(--text-xl); line-height: 1.4; color: var(--muted); }
-.hero .store { margin-top: var(--space-xl); }
-.stage { position: relative; margin-top: var(--space-3xl); display: grid; place-items: center; }
-.stage .phone { position: relative; z-index: 1; max-width: 320px; }
-.orbit { position: absolute; z-index: 0; width: min(760px, 150vw); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
-.orbit circle { fill: none; stroke-linecap: round; }
+.hero .lede { margin: var(--space-md) auto 0; max-width: 34ch; font-size: var(--text-xl); line-height: 1.4; color: var(--muted); }
+.hero .store { margin-top: var(--space-lg); }
+.stage {
+  --sy: 0;
+  position: relative; margin: var(--space-2xl) auto 0;
+  width: min(780px, 100%);
+  display: grid; place-items: center;
+  padding-block: var(--space-lg);
+}
+.orbit {
+  position: absolute; z-index: 0; top: 50%; left: 50%;
+  width: 100%; height: auto; pointer-events: none;
+  transform: translate(-50%, -50%) translate3d(0, calc(var(--sy) * 0.03px), 0) rotate(calc(var(--sy) * 0.03deg));
+}
+.orbit circle { fill: none; stroke-width: 26; stroke-linecap: round; }
+.orbit-track { opacity: 0.14; }
+.orbit-arc { stroke-dasharray: 100; }
+.orbit-breathe { transform-origin: 500px 500px; }
+html.js .orbit.in .orbit-breathe { animation: breathe 6.5s var(--ease-in-out) 2.4s infinite alternate; }
+@keyframes breathe { from { transform: scale(1); opacity: 1; } to { transform: scale(1.025); opacity: 0.86; } }
+.hero-float { position: relative; z-index: 1; width: min(330px, 58%); transform: translate3d(0, calc(var(--sy) * -0.035px), 0); }
+.hero-device { max-width: none; perspective: 1400px; }
+html.js .hero-device { animation: rise 1500ms var(--spring) 180ms both; }
+@keyframes rise { from { opacity: 0; transform: translate3d(0, 90px, 0) scale(0.96); } to { opacity: 1; transform: none; } }
 
 /* ── Chapters ───────────────────────────── */
 .chapter { padding-block: var(--space-4xl); }
@@ -225,7 +291,9 @@ p { text-wrap: pretty; }
 .split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3xl); align-items: center; }
 .split .media { display: flex; justify-content: center; }
 @media (min-width: 900px) {
-  .split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--space-4xl); }
+  .split { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: var(--space-3xl); }
+  .split .media > .device { max-width: 340px; }
+  .phones .device { max-width: 290px; }
   .split.flip .media { order: -1; }
 }
 
@@ -305,19 +373,58 @@ footer { background: var(--paper-2); color: var(--muted); font-size: var(--text-
 .foot ul a:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
 .legal { margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: 1px solid var(--line); }
 
+/* ── Rest countdown ─────────────────────── */
+.timer { position: relative; width: min(260px, 64vw); aspect-ratio: 1; margin: var(--space-3xl) auto 0; }
+.timer svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.timer circle { fill: none; stroke-width: 12; }
+.timer-track { stroke: rgba(255,255,255,0.12); }
+.timer-arc { stroke: var(--cyan); stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 0; filter: drop-shadow(0 0 10px rgba(0,224,255,0.45)); }
+html.js .timer.run .timer-arc { animation: countdown 56s linear infinite; }
+@keyframes countdown { 0% { stroke-dashoffset: 0; } 98.2%, 100% { stroke-dashoffset: 100; } }
+.timer-read { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; }
+.timer-label { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-band-muted); }
+.timer-time { font-size: clamp(3.5rem, 2.4rem + 4vw, 5rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; color: var(--on-band); }
+
+/* ── Micro-interactions ─────────────────── */
+.store:not([aria-disabled="true"]) { box-shadow: 0 0 0 rgba(0,0,0,0); transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-med) var(--ease-out), opacity var(--dur-fast) var(--ease-out); }
+@media (hover: hover) {
+  .store:not([aria-disabled="true"]):hover { transform: translateY(-2px); box-shadow: 0 10px 24px -10px rgba(0,0,0,0.45); opacity: 1; }
+  .store[aria-disabled="true"]:hover .dot { animation: ping 900ms var(--ease-out); }
+  .more:hover { transform: translateX(3px); }
+  .fact:hover { transform: translateY(-3px); }
+  .pills li:hover { transform: translateY(-2px); }
+}
+.store:not([aria-disabled="true"]):active { transform: scale(0.97); }
+.more, .fact, .pills li { transition: transform var(--dur-med) var(--ease-out); }
+.more:active, .pills li:active { transform: scale(0.97); }
+@keyframes ping { 0% { transform: scale(1); } 40% { transform: scale(1.8); } 100% { transform: scale(1); } }
+[data-count] { display: inline-block; font-variant-numeric: tabular-nums; text-align: right; }
+
 /* ── Reveal (JS only) ───────────────────── */
-html.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out); }
+html.js .reveal { opacity: 0; transform: translate3d(0, 36px, 0); transition: opacity 1000ms var(--ease-out), transform 1100ms var(--ease-out); }
 html.js .reveal.in { opacity: 1; transform: none; }
+html.js .split .reveal.media { transition-delay: 120ms; }
+html.js .facts .reveal:nth-child(2) { transition-delay: 80ms; }
+html.js .facts .reveal:nth-child(3) { transition-delay: 160ms; }
+html.js .facts .reveal:nth-child(4) { transition-delay: 240ms; }
+html.js .stagger li { opacity: 0; transform: translate3d(0, 14px, 0); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms + 250ms); }
+html.js .in .stagger li, html.js .stagger.in li { opacity: 1; transform: none; }
 [data-ring] { stroke-dashoffset: var(--to); }
-html.js [data-ring] { transition: stroke-dashoffset 1600ms var(--ease-in-out); }
+html.js [data-ring] { transition: stroke-dashoffset 1800ms var(--ease-in-out) var(--d, 0ms); }
 html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { stroke-dashoffset: 100; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  html.js .reveal { transform: none; transition: opacity 150ms linear; }
+  html.js .reveal, html.js .stagger li { transform: none; transition: opacity 150ms linear; transition-delay: 0ms; }
   html.js [data-ring] { transition: none; }
   html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { stroke-dashoffset: var(--to); }
+  html.js .hero-device { animation: fade 300ms linear both; }
+  html.js .orbit.in .orbit-breathe, html.js .timer.run .timer-arc, html.js .in .device.shine .screen::after { animation: none; }
+  .orbit, .hero-float { transform: translate(-50%, -50%); }
+  .hero-float { transform: none; }
+  .store, .more, .fact, .pills li { transition: none; transform: none !important; }
 }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-transparency: reduce) { .bar { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; } }
 
 @media (max-width: 420px) {
@@ -326,6 +433,10 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
   .hero { padding-top: var(--space-2xl); }
   .chapter, .band, .final { padding-block: var(--space-3xl); }
   .phones { gap: 10px; }
+  .hero-float { width: 62%; }
+}
+@supports (animation-timing-function: linear(0, 1)) {
+  :root { --spring: linear(0, 0.063, 0.23 7.6%, 0.614 16.9%, 0.852 25%, 0.943 30.5%, 1.002 37.3%, 1.02 42.3%, 1.024 48.5%, 1.012 60.8%, 1.001 74.5%, 1); }
 }
 </style>
 </head>
@@ -351,7 +462,7 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
   <!-- Hero -->
   <section class="hero">
     <div class="wrap">
-      <img class="hero-icon" src="/assets/icon-512.webp" width="96" height="96" alt="" />
+      <img class="hero-icon" src="/assets/icon-512.webp" width="80" height="80" alt="" />
       <p class="product">Salmark</p>
       <h1 data-i18n="hero.title">Журнал тренировок, который не мешает тренироваться.</h1>
       <p class="lede" data-i18n="hero.sub">Для iPhone. Работает без интернета, без аккаунта и без рекламы.</p>
@@ -360,19 +471,24 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <span data-i18n="store.soon">Скоро в App Store</span>
       </a>
       <div class="stage">
-        <svg class="orbit" viewBox="0 0 760 760" aria-hidden="true">
-          <g transform="rotate(-90 380 380)">
-            <circle cx="380" cy="380" r="360" stroke="var(--red)" stroke-width="10" pathLength="100" stroke-dasharray="100" data-ring style="--to:18; opacity:.9" />
-            <circle cx="380" cy="380" r="336" stroke="var(--lime)" stroke-width="10" pathLength="100" stroke-dasharray="100" data-ring style="--to:30; opacity:.9" />
-            <circle cx="380" cy="380" r="312" stroke="var(--cyan)" stroke-width="10" pathLength="100" stroke-dasharray="100" data-ring style="--to:42; opacity:.9" />
+        <svg class="orbit" viewBox="0 0 1000 1000" aria-hidden="true">
+          <g class="orbit-breathe">
+            <g transform="rotate(-90 500 500)">
+              <circle class="orbit-track" cx="500" cy="500" r="470" style="stroke: var(--red)" />
+              <circle class="orbit-track" cx="500" cy="500" r="418" style="stroke: var(--lime)" />
+              <circle class="orbit-track" cx="500" cy="500" r="366" style="stroke: var(--cyan)" />
+              <circle class="orbit-arc" cx="500" cy="500" r="470" pathLength="100" data-ring style="--to:22; --d:0ms; stroke: var(--red)" />
+              <circle class="orbit-arc" cx="500" cy="500" r="418" pathLength="100" data-ring style="--to:36; --d:140ms; stroke: var(--lime)" />
+              <circle class="orbit-arc" cx="500" cy="500" r="366" pathLength="100" data-ring style="--to:14; --d:280ms; stroke: var(--cyan)" />
+            </g>
           </g>
         </svg>
-        <figure class="phone">
-          <picture>
+        <div class="hero-float" data-scroll-float>
+          <figure class="device hero-device" data-tilt><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture>
             <source srcset="/assets/sum-dark.webp" media="(prefers-color-scheme: dark)" />
             <img src="/assets/sum-light.webp" width="599" height="1304" fetchpriority="high" data-i18n-alt="alt.hero" alt="Экран «Сводка»: три кольца недели — тренировки, поднятые килограммы и минуты" />
-          </picture>
-        </figure>
+          </picture><span class="island"></span></div></div></div></figure>
+        </div>
       </div>
     </div>
   </section>
@@ -384,18 +500,18 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <span class="kicker" style="color: var(--red-ink)" data-i18n="log.kicker">Тренировка</span>
         <h2 data-i18n="log.title">Подход — одним касанием.</h2>
         <p data-i18n="log.body">Salmark подставляет вес и повторы с прошлого раза. Сделали столько же — отметьте галочку. Больше — прокрутите колесо с цифрами, без клавиатуры.</p>
-        <ul class="ticks">
-          <li data-i18n="log.f1">Разминочные подходы — в одно касание</li>
-          <li data-i18n="log.f2">Дроп-сеты и подходы до отказа</li>
-          <li data-i18n="log.f3">Суперсеты</li>
-          <li data-i18n="log.f4">Калькулятор блинов</li>
-          <li data-i18n="log.f5">Подсказка «Пора прибавить»</li>
-          <li data-i18n="log.f6">Шаблоны тренировок</li>
+        <ul class="ticks stagger">
+          <li style="--i:0" data-i18n="log.f1">Разминочные подходы — в одно касание</li>
+          <li style="--i:1" data-i18n="log.f2">Дроп-сеты и подходы до отказа</li>
+          <li style="--i:2" data-i18n="log.f3">Суперсеты</li>
+          <li style="--i:3" data-i18n="log.f4">Калькулятор блинов</li>
+          <li style="--i:4" data-i18n="log.f5">Подсказка «Пора прибавить»</li>
+          <li style="--i:5" data-i18n="log.f6">Шаблоны тренировок</li>
         </ul>
       </div>
       <div class="media phones reveal">
-        <figure class="phone"><img src="/assets/tools-warmup-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.warmup" alt="Тренировка: разминочные подходы, подсказка «Пора прибавить: +2,5 кг» и колонки кг и повторов" /></figure>
-        <figure class="phone"><img src="/assets/tools-plates-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.plates" alt="Калькулятор блинов: 77,5 кг — на каждую сторону 25 + 2,5 + 1,25" /></figure>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><img src="/assets/tools-warmup-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.warmup" alt="Тренировка: разминочные подходы, подсказка «Пора прибавить: +2,5 кг» и колонки кг и повторов" /><span class="island"></span></div></div></div></figure>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><img src="/assets/tools-plates-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.plates" alt="Калькулятор блинов: 77,5 кг — на каждую сторону 25 + 2,5 + 1,25" /><span class="island"></span></div></div></div></figure>
       </div>
     </div>
   </section>
@@ -407,6 +523,10 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <span class="kicker" data-i18n="rest.kicker">Таймер отдыха</span>
         <h2 data-i18n="rest.title">Отдых считается, даже когда телефон в кармане.</h2>
         <p data-i18n="rest.body">Таймер виден на экране блокировки и в Dynamic Island. Добавьте 15 секунд или сразу переходите к следующему подходу.</p>
+      </div>
+      <div class="timer reveal" aria-hidden="true">
+        <svg viewBox="0 0 240 240"><circle class="timer-track" cx="120" cy="120" r="108" /><circle class="timer-arc" cx="120" cy="120" r="108" pathLength="100" /></svg>
+        <div class="timer-read"><span class="timer-label" data-i18n="rest.label">Отдых</span><span class="timer-time" data-countdown>0:55</span></div>
       </div>
       <figure class="shot reveal"><img src="/assets/rest-crop.webp" width="800" height="352" loading="lazy" decoding="async" data-i18n-alt="alt.rest" alt="Таймер отдыха: 0:55, кнопки «+15» и «Дальше»" /></figure>
     </div>
@@ -426,9 +546,9 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
             <circle class="track" cx="100" cy="100" r="88" />
             <circle class="track" cx="100" cy="100" r="68" />
             <circle class="track" cx="100" cy="100" r="48" />
-            <circle cx="100" cy="100" r="88" stroke="var(--red)" pathLength="100" stroke-dasharray="100" data-ring style="--to:33" />
-            <circle cx="100" cy="100" r="68" stroke="var(--lime)" pathLength="100" stroke-dasharray="100" data-ring style="--to:14" />
-            <circle cx="100" cy="100" r="48" stroke="var(--cyan)" pathLength="100" stroke-dasharray="100" data-ring style="--to:24" />
+            <circle cx="100" cy="100" r="88" stroke="var(--red)" pathLength="100" stroke-dasharray="100" data-ring style="--to:33; --d:0ms" />
+            <circle cx="100" cy="100" r="68" stroke="var(--lime)" pathLength="100" stroke-dasharray="100" data-ring style="--to:14; --d:150ms" />
+            <circle cx="100" cy="100" r="48" stroke="var(--cyan)" pathLength="100" stroke-dasharray="100" data-ring style="--to:24; --d:300ms" />
           </svg>
           <ul class="legend">
             <li><i style="background: var(--red)"></i><span data-i18n="ring.w">Тренировки</span></li>
@@ -437,12 +557,10 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
           </ul>
         </div>
         <div class="media reveal" style="display:flex;justify-content:center">
-          <figure class="phone">
-            <picture>
+          <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture>
               <source srcset="/assets/p-top-dark.webp" media="(prefers-color-scheme: dark)" />
               <img src="/assets/p-top-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.progress" alt="Экран «Прогресс»: уровень, тренировки, поднятый вес и время за месяц" />
-            </picture>
-          </figure>
+            </picture><span class="island"></span></div></div></div></figure>
         </div>
       </div>
       <div class="facts">
@@ -463,12 +581,10 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <p data-i18n="mus.body">Чем больше подходов, тем ярче мышца. Сразу видно, что вы прокачали, а что пропустили.</p>
       </div>
       <div class="media reveal">
-        <figure class="phone">
-          <picture>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture>
             <source srcset="/assets/v3-body-dark.webp" media="(prefers-color-scheme: dark)" />
             <img src="/assets/v3-body-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.muscles" alt="Карта мышц за неделю: вид спереди и сзади, квадрицепсы и задняя поверхность бедра выделены ярче" />
-          </picture>
-        </figure>
+          </picture><span class="island"></span></div></div></div></figure>
       </div>
     </div>
   </section>
@@ -482,13 +598,11 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <p data-i18n="cal.body">Поставьте тренировки в календарь с повтором по дням недели и напоминанием. Забыли записать — добавьте задним числом. Отпуск или болезнь не прервут серию недель.</p>
       </div>
       <div class="media phones reveal">
-        <figure class="phone">
-          <picture>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture>
             <source srcset="/assets/cal-month-dark.webp" media="(prefers-color-scheme: dark)" />
             <img src="/assets/cal-month-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.cal" alt="Календарь месяца с отмеченными тренировками и ближайшими планами" />
-          </picture>
-        </figure>
-        <figure class="phone"><img src="/assets/cal-plan-sheet-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.plan" alt="Планирование тренировки: повтор по дням недели и напоминания" /></figure>
+          </picture><span class="island"></span></div></div></div></figure>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><img src="/assets/cal-plan-sheet-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.plan" alt="Планирование тренировки: повтор по дням недели и напоминания" /><span class="island"></span></div></div></div></figure>
       </div>
     </div>
   </section>
@@ -497,16 +611,14 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
   <section class="chapter" id="exercises">
     <div class="wrap split flip">
       <div class="head reveal">
-        <h2><span class="giant">211</span> <span class="giant-sub" data-i18n="ex.title">упражнений с анимацией техники.</span></h2>
+        <h2><span class="giant" data-count="211">211</span> <span class="giant-sub" data-i18n="ex.title">упражнений с анимацией техники.</span></h2>
         <p data-i18n="ex.body">Какие мышцы работают, как выполнять и где чаще всего ошибаются. Все рисунки — наши собственные.</p>
       </div>
       <div class="media reveal">
-        <figure class="phone">
-          <picture>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture>
             <source srcset="/assets/pose-detail-dark.webp" media="(prefers-color-scheme: dark)" />
             <img src="/assets/pose-detail-bench-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.ex" alt="Упражнение «Жим штанги лёжа»: рисунок техники и работающие мышцы" />
-          </picture>
-        </figure>
+          </picture><span class="island"></span></div></div></div></figure>
       </div>
     </div>
   </section>
@@ -516,16 +628,14 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
     <div class="wrap split">
       <div class="head reveal">
         <span class="kicker" style="color: var(--red-ink)" data-i18n="game.kicker">Награды</span>
-        <h2 data-i18n="game.title">100 уровней. Медали. Задание месяца.</h2>
+        <h2 data-i18n="game.title"><span data-count="100">100</span> уровней. Медали. Задание месяца.</h2>
         <p data-i18n="game.body">Очки опыта за подходы, тренировки и рекорды. Медали за серии, кольца и особые тренировки.</p>
       </div>
       <div class="media reveal">
-        <figure class="phone">
-          <picture>
+        <figure class="device shine" data-parallax data-tilt><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture>
             <source srcset="/assets/p-badges-dark.webp" media="(prefers-color-scheme: dark)" />
             <img src="/assets/p-badges-light.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.game" alt="Экран «Награды»: медали за рекорды, кольца и особые тренировки" />
-          </picture>
-        </figure>
+          </picture><span class="island"></span></div></div></div></figure>
       </div>
     </div>
   </section>
@@ -537,12 +647,12 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <h2 data-i18n="priv.title">Ваши тренировки остаются на вашем телефоне.</h2>
         <p data-i18n="priv.body">У Salmark нет сервера. Мы ничего не собираем и не видим.</p>
       </div>
-      <ul class="pills reveal">
-        <li data-i18n="priv.1">Без аккаунта</li>
-        <li data-i18n="priv.2">Без рекламы</li>
-        <li data-i18n="priv.3">Работает без интернета</li>
-        <li data-i18n="priv.4">Выгрузка в CSV</li>
-        <li data-i18n="priv.5">Полное удаление данных</li>
+      <ul class="pills reveal stagger">
+        <li style="--i:0" data-i18n="priv.1">Без аккаунта</li>
+        <li style="--i:1" data-i18n="priv.2">Без рекламы</li>
+        <li style="--i:2" data-i18n="priv.3">Работает без интернета</li>
+        <li style="--i:3" data-i18n="priv.4">Выгрузка в CSV</li>
+        <li style="--i:4" data-i18n="priv.5">Полное удаление данных</li>
       </ul>
       <div style="text-align:center"><a class="more" href="/app/privacy/" data-i18n="priv.link">Политика конфиденциальности приложения →</a></div>
     </div>
@@ -556,7 +666,7 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <p data-i18n="lang.body">Приложение говорит на трёх языках. Светлая и тёмная тема, звуки и вибрация — настройте, как вам удобно.</p>
       </div>
       <div class="media reveal">
-        <figure class="phone"><img src="/assets/sum-kk.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.kk" alt="Экран «Сводка» на казахском языке" /></figure>
+        <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><img src="/assets/sum-kk.webp" width="599" height="1304" loading="lazy" decoding="async" data-i18n-alt="alt.kk" alt="Экран «Сводка» на казахском языке" /><span class="island"></span></div></div></div></figure>
       </div>
     </div>
   </section>
@@ -589,12 +699,10 @@ html.js .rings:not(.in) [data-ring], html.js .orbit:not(.in) [data-ring] { strok
         <ul>
           <li><a href="/app/" data-i18n="foot.help">Помощь и частые вопросы</a></li>
           <li><a href="/app/privacy/" data-i18n="foot.appPrivacy">Конфиденциальность приложения</a></li>
-          <li><a href="/privacy/" data-i18n="foot.privacy">Политика конфиденциальности</a></li>
-          <li><a href="/terms/" data-i18n="foot.terms">Публичная оферта</a></li>
         </ul>
       </div>
     </div>
-    <p class="legal" data-i18n="foot.legal">© 2026 ТОО «Salmark Consulting»</p>
+    <p class="legal" data-i18n="foot.legal">© 2026 Salmark</p>
   </div>
 </footer>
 
@@ -627,6 +735,7 @@ const APP_STORE_URL = "";
       "log.f5": "«Қосатын уақыт» кеңесі",
       "log.f6": "Жаттығу үлгілері",
       "rest.kicker": "Демалыс таймері",
+      "rest.label": "Демалыс",
       "rest.title": "Телефон қалтада жатса да, демалыс уақыты есептеледі.",
       "rest.body": "Таймер құлып экранында және Dynamic Island-та көрінеді. 15 секунд қосыңыз немесе бірден келесі сетке өтіңіз.",
       "prog.kicker": "Прогресс",
@@ -652,7 +761,7 @@ const APP_STORE_URL = "";
       "ex.title": "техникасы анимациямен көрсетілген жаттығу.",
       "ex.body": "Қай бұлшықеттер жұмыс істейді, қалай дұрыс орындау керек және көбіне қай жерде қателеседі. Барлық суреттер — өзіміздің жұмысымыз.",
       "game.kicker": "Марапаттар",
-      "game.title": "100 деңгей. Медальдар. Ай тапсырмасы.",
+      "game.title": "<span data-count=\"100\">100</span> деңгей. Медальдар. Ай тапсырмасы.",
       "game.body": "Сеттер, жаттығулар және рекордтар үшін тәжірибе ұпайлары. Сериялар, сақиналар және ерекше жаттығулар үшін медальдар.",
       "priv.title": "Жаттығуларыңыз тек өз телефоныңызда қалады.",
       "priv.body": "Salmark-тың сервері жоқ. Біз ештеңе жинамаймыз және ештеңе көрмейміз.",
@@ -669,9 +778,7 @@ const APP_STORE_URL = "";
       "foot.docs": "Құжаттар",
       "foot.help": "Көмек және жиі қойылатын сұрақтар",
       "foot.appPrivacy": "Қолданбаның құпиялылығы",
-      "foot.privacy": "Құпиялылық саясаты",
-      "foot.terms": "Жария оферта",
-      "foot.legal": "© 2026 «Salmark Consulting» ЖШС",
+      "foot.legal": "© 2026 Salmark",
       "alt.hero": "«Жиынтық» экраны: аптаның үш сақинасы — жаттығулар, көтерілген салмақ және минуттар",
       "alt.warmup": "Жаттығу: қыздыру сеттері, «Қосатын уақыт: +2,5 кг» кеңесі, салмақ пен қайталау бағандары",
       "alt.plates": "Дискілер калькуляторы: 77,5 кг — әр жаққа 25 + 2,5 + 1,25",
@@ -702,6 +809,7 @@ const APP_STORE_URL = "";
       "log.f5": "“Time to add weight” hint",
       "log.f6": "Workout templates",
       "rest.kicker": "Rest timer",
+      "rest.label": "Rest",
       "rest.title": "Rest keeps counting, even with your phone in your pocket.",
       "rest.body": "The timer shows on your Lock Screen and in the Dynamic Island. Add 15 seconds, or move straight on to the next set.",
       "prog.kicker": "Progress",
@@ -727,7 +835,7 @@ const APP_STORE_URL = "";
       "ex.title": "exercises with animated technique.",
       "ex.body": "Which muscles work, how to do it right, and where people most often go wrong. Every illustration is our own.",
       "game.kicker": "Awards",
-      "game.title": "100 levels. Medals. A monthly challenge.",
+      "game.title": "<span data-count=\"100\">100</span> levels. Medals. A monthly challenge.",
       "game.body": "Earn XP for sets, workouts and records. Medals for streaks, rings and special sessions.",
       "priv.title": "Your workouts stay on your phone.",
       "priv.body": "Salmark has no server. We don’t collect anything, and we can’t see anything.",
@@ -744,9 +852,7 @@ const APP_STORE_URL = "";
       "foot.docs": "Documents",
       "foot.help": "Help and FAQ",
       "foot.appPrivacy": "App privacy",
-      "foot.privacy": "Privacy policy",
-      "foot.terms": "Public offer",
-      "foot.legal": "© 2026 Salmark Consulting LLP",
+      "foot.legal": "© 2026 Salmark",
       "alt.hero": "Summary screen: three weekly rings — workouts, kilograms lifted and minutes",
       "alt.warmup": "Workout screen: warm-up sets, a “time to add +2.5 kg” hint, weight and reps columns",
       "alt.plates": "Plate calculator: 77.5 kg — 25 + 2.5 + 1.25 on each side",
@@ -825,18 +931,121 @@ const APP_STORE_URL = "";
     });
   });
 
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var finePointer = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  /* Hero rings draw in on load */
+  var orbit = document.querySelector(".orbit");
+  requestAnimationFrame(function () { requestAnimationFrame(function () { orbit && orbit.classList.add("in"); }); });
+
+  /* Count-up */
+  function countUp(el) {
+    var target = parseInt(el.getAttribute("data-count"), 10);
+    if (reduce || !target) { el.textContent = target; return; }
+    el.style.minWidth = el.getBoundingClientRect().width + "px";
+    var t0 = null, dur = 1400;
+    function step(t) {
+      if (t0 === null) t0 = t;
+      var k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(target * e);
+      if (k < 1) requestAnimationFrame(step);
+    }
+    el.textContent = "0";
+    requestAnimationFrame(step);
+  }
+
+  /* Rest countdown: 0:55 → 0:00, loops while visible */
+  var timer = document.querySelector(".timer"), timeEl = timer && timer.querySelector("[data-countdown]"), tick = null;
+  function runTimer(on) {
+    if (!timer || reduce) return;
+    clearInterval(tick);
+    timer.classList.remove("run");
+    if (!on) { timeEl.textContent = "0:55"; return; }
+    void timer.offsetWidth;
+    timer.classList.add("run");
+    var t0 = performance.now();
+    tick = setInterval(function () {
+      var left = Math.max(0, 55 - Math.floor(((performance.now() - t0) / 1000) % 56));
+      timeEl.textContent = "0:" + (left < 10 ? "0" : "") + left;
+    }, 200);
+  }
+
   /* Reveal on scroll */
-  var targets = document.querySelectorAll(".reveal, .rings, .orbit");
+  var targets = document.querySelectorAll(".reveal, .rings, [data-count]");
   if (!("IntersectionObserver" in window)) {
     targets.forEach(function (el) { el.classList.add("in"); });
     return;
   }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      if (!e.isIntersecting) return;
+      if (e.target.hasAttribute("data-count")) countUp(e.target);
+      else e.target.classList.add("in");
+      io.unobserve(e.target);
     });
-  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+  }, { rootMargin: "0px 0px -10% 0px", threshold: 0.15 });
   targets.forEach(function (el) { io.observe(el); });
+  if (timer) {
+    new IntersectionObserver(function (entries) { runTimer(entries[0].isIntersecting); }, { threshold: 0.3 }).observe(timer);
+  }
+
+  if (reduce) return;
+
+  /* Scroll parallax (reads parent rects, writes transforms — one rAF per frame) */
+  var stage = document.querySelector(".stage");
+  var par = [].slice.call(document.querySelectorAll("[data-parallax]")).map(function (el) {
+    var two = el.parentNode.classList.contains("phones");
+    var second = two && el.parentNode.children[1] === el;
+    return { el: el, host: el.parentNode, f: second ? 70 : two ? 30 : 40 };
+  });
+  var ticking = false;
+  function update() {
+    ticking = false;
+    var vh = window.innerHeight, y = window.scrollY;
+    if (stage && y < vh * 1.5) stage.style.setProperty("--sy", y.toFixed(1));
+    for (var i = 0; i < par.length; i++) {
+      var p = par[i], r = p.host.getBoundingClientRect();
+      if (r.bottom < -200 || r.top > vh + 200) continue;
+      var c = (r.top + r.height / 2 - vh / 2) / vh;
+      p.el.style.transform = "translate3d(0," + (c * -p.f).toFixed(1) + "px,0)";
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", onScroll, { passive: true });
+  update();
+
+  /* Pointer tilt (desktop only): hero follows the cursor across the hero; medals tilt on hover */
+  if (!finePointer) return;
+  function tilter(body, maxX, maxY) {
+    var cur = { x: 0, y: 0 }, tgt = { x: 0, y: 0 }, raf = null;
+    function loop() {
+      cur.x += (tgt.x - cur.x) * 0.12; cur.y += (tgt.y - cur.y) * 0.12;
+      body.style.transform = "rotateX(" + cur.y.toFixed(2) + "deg) rotateY(" + cur.x.toFixed(2) + "deg)";
+      if (Math.abs(tgt.x - cur.x) > 0.01 || Math.abs(tgt.y - cur.y) > 0.01) raf = requestAnimationFrame(loop); else raf = null;
+    }
+    return function (nx, ny) { tgt.x = nx * maxX; tgt.y = -ny * maxY; if (!raf) raf = requestAnimationFrame(loop); };
+  }
+  var hero = document.querySelector(".hero"), heroBody = document.querySelector(".hero-device .device-body");
+  if (hero && heroBody) {
+    var ht = tilter(heroBody, 9, 6);
+    hero.addEventListener("pointermove", function (e) {
+      var r = heroBody.getBoundingClientRect();
+      var nx = (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2);
+      var ny = (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2);
+      ht(Math.max(-1, Math.min(1, nx)), Math.max(-1, Math.min(1, ny)));
+    });
+    hero.addEventListener("pointerleave", function () { ht(0, 0); });
+  }
+  document.querySelectorAll(".device.shine").forEach(function (dev) {
+    var body = dev.querySelector(".device-body"), t = tilter(body, 10, 8);
+    dev.style.perspective = "1200px";
+    dev.addEventListener("pointermove", function (e) {
+      var r = dev.getBoundingClientRect();
+      t((e.clientX - r.left) / r.width * 2 - 1, (e.clientY - r.top) / r.height * 2 - 1);
+    });
+    dev.addEventListener("pointerleave", function () { t(0, 0); });
+  });
 })();
 </script>
 </body>
