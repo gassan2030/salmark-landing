@@ -6,14 +6,14 @@
 <meta name="theme-color" content="#000000" />
 <meta name="color-scheme" content="dark light" />
 
-<title>Salmark — журнал тренировок для iPhone</title>
+<title>Ilyin Method — журнал тренировок для iPhone</title>
 <meta name="description" content="Записывайте подходы в зале одним касанием. Кольца недели, рекорды, карта мышц, календарь. Без интернета, без аккаунта, без рекламы." />
 <link rel="canonical" href="https://salmark.kz/" />
 
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="Salmark" />
+<meta property="og:site_name" content="Ilyin Method" />
 <meta property="og:url" content="https://salmark.kz/" />
-<meta property="og:title" content="Salmark — журнал тренировок для iPhone" />
+<meta property="og:title" content="Ilyin Method — журнал тренировок для iPhone" />
 <meta property="og:description" content="Записывайте подходы в зале одним касанием. Без интернета, без аккаунта, без рекламы." />
 <meta property="og:image" content="https://salmark.kz/assets/og.jpg" />
 <meta property="og:image:width" content="1200" />
@@ -36,7 +36,7 @@
 {
   "@context": "https://schema.org",
   "@type": "MobileApplication",
-  "name": "Salmark",
+  "name": "Ilyin Method",
   "description": "Журнал тренировок для зала для iPhone. Работает без интернета, без аккаунта и без рекламы.",
   "operatingSystem": "iOS",
   "applicationCategory": "HealthApplication",
@@ -44,12 +44,12 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "KZT" },
   "url": "https://salmark.kz/",
   "image": "https://salmark.kz/assets/icon-512.png",
-  "publisher": { "@type": "Organization", "name": "Salmark", "url": "https://salmark.kz/" }
+  "publisher": { "@type": "Organization", "name": "Ilyin Method", "url": "https://salmark.kz/" }
 }
 </script>
 
 <style>
-/* Salmark · brand v2 «сила — это система»
+/* Ilyin Method · brand v2 «сила — это система»
  * black / white + one acid lime (#D9FF3F) used only as a fill with black text.
  * display: Inter Tight 900 italic, uppercase, tight tracking · body: Inter Tight 400–600
  * dark-first: dark tokens are the default, light tokens under prefers-color-scheme: light.
@@ -260,71 +260,8 @@ h2.display, h3.display { text-wrap: balance; }
 .key-vol2   { left: -0.75cqw; top: 38.2%; height: 9.2%; }
 .key-power  { right: -0.75cqw; top: 30%;  height: 13.8%; }
 
-/* ── App UI drawn in HTML (Salmark v2 style). 1 pt = screen width / 393 ── */
-.ui {
-  --pt: 0.2545cqw;
-  position: absolute; inset: 0; display: flex; flex-direction: column;
-  padding: calc(var(--pt) * 58) calc(var(--pt) * 18) 0;
-  font-family: var(--font); color: var(--ink); background: var(--paper);
-  font-size: calc(var(--pt) * 15); line-height: 1.25; text-align: left;
-  user-select: none;
-}
-.ui-status { position: absolute; top: calc(var(--pt) * 17); left: calc(var(--pt) * 34); right: calc(var(--pt) * 30); display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: calc(var(--pt) * 16); }
-.ui-status svg { height: calc(var(--pt) * 12); width: auto; fill: currentColor; }
-.ui .display { line-height: 0.88; letter-spacing: -0.02em; }
-.ui-cap { font-size: calc(var(--pt) * 12.5); color: var(--mute); }
-.ui-hi { font-size: calc(var(--pt) * 15); font-weight: 600; }
-.ui-row { display: flex; justify-content: space-between; align-items: flex-start; gap: calc(var(--pt) * 10); }
-.ui-av { width: calc(var(--pt) * 40); height: calc(var(--pt) * 40); display: grid; place-items: center; background: var(--ink); color: var(--paper); border-radius: calc(var(--pt) * 3); font-family: var(--display); font-weight: 800; font-style: italic; font-size: calc(var(--pt) * 18); }
-.ui-week { font-size: calc(var(--pt) * 60); margin: calc(var(--pt) * 10) 0 calc(var(--pt) * 14) calc(var(--pt) * -2); white-space: nowrap; }
-.ui-tag { display: flex; align-items: center; gap: calc(var(--pt) * 7); font-size: calc(var(--pt) * 11.5); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
-.ui-tag::before { content: ""; width: calc(var(--pt) * 8); height: calc(var(--pt) * 8); background: var(--lime); }
-.ui-stage { --c: calc(var(--pt) * 18); background: #141414; color: #fff; padding: calc(var(--pt) * 16); }
-.ui-stage .ui-cap { color: rgba(255,255,255,0.62); margin-top: calc(var(--pt) * 3); }
-.ui-rings { display: block; width: 64%; margin: calc(var(--pt) * 12) auto calc(var(--pt) * 14); transform: rotate(-90deg); }
-.ui-rings circle { fill: none; stroke-width: 15; stroke-linecap: round; }
-.ui-rings .tr { stroke: #262626; }
-.ui-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--pt) * 8); }
-.ui-stat { border-left: calc(var(--pt) * 3) solid var(--c2, var(--lime)); padding-left: calc(var(--pt) * 7); min-width: 0; }
-.ui-stat .ui-cap { margin: 0; font-size: calc(var(--pt) * 11); white-space: nowrap; }
-.ui-stat b { display: block; font-family: var(--display); font-weight: 900; font-style: italic; font-size: calc(var(--pt) * 25); letter-spacing: -0.02em; line-height: 1; white-space: nowrap; }
-.ui-stat b small { font-size: 0.5em; font-weight: 800; margin-left: 0.15em; }
-.ui-card { --c: calc(var(--pt) * 18); background: var(--panel); padding: calc(var(--pt) * 16); margin-top: calc(var(--pt) * 12); }
-.ui-card .display { font-size: calc(var(--pt) * 34); margin-top: calc(var(--pt) * 6); }
-.ui-tabs { margin-top: auto; display: grid; grid-template-columns: repeat(4, 1fr); padding: calc(var(--pt) * 10) 0 calc(var(--pt) * 30); border-top: 1px solid var(--rule); background: var(--paper); position: relative; z-index: 1; }
-.ui-tabs span { display: grid; justify-items: center; gap: calc(var(--pt) * 4); font-size: calc(var(--pt) * 10); font-weight: 600; color: var(--mute); }
-.ui-tabs span::before { content: ""; width: calc(var(--pt) * 22); height: calc(var(--pt) * 22); border: calc(var(--pt) * 2.2) solid currentColor; border-radius: calc(var(--pt) * 3); }
-.ui-tabs span.on { color: var(--ink); }
-.ui-tabs span.on::before { background: var(--lime); border-color: var(--lime); }
-/* workout screen */
-.ui-navrow { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: calc(var(--pt) * 15); margin-bottom: calc(var(--pt) * 18); }
-.ui-navrow .t { font-variant-numeric: tabular-nums; padding: calc(var(--pt) * 4) calc(var(--pt) * 9); background: var(--panel); }
-.ui-ex { font-size: calc(var(--pt) * 50); margin: calc(var(--pt) * 8) 0 calc(var(--pt) * 14) calc(var(--pt) * -2); }
-.ui-hint { display: flex; align-items: center; gap: calc(var(--pt) * 8); background: var(--lime); color: var(--on-lime); padding: calc(var(--pt) * 10) calc(var(--pt) * 12); font-weight: 700; font-size: calc(var(--pt) * 13.5); }
-.ui-hint i { font-style: normal; font-size: 1.2em; }
-.ui-table { margin-top: calc(var(--pt) * 14); display: grid; }
-.ui-tr { display: grid; grid-template-columns: 1.1fr 1.4fr 1.3fr calc(var(--pt) * 34); align-items: center; gap: calc(var(--pt) * 6); padding: calc(var(--pt) * 8) 0; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
-.ui-tr.h { font-size: calc(var(--pt) * 10.5); font-weight: 700; letter-spacing: 0.1em; color: var(--mute); text-transform: uppercase; padding-top: 0; }
-.ui-tr .n { font-family: var(--display); font-style: italic; font-weight: 900; font-size: calc(var(--pt) * 20); }
-.ui-tr .n.w { color: var(--mute); }
-.ui-tr .v { font-weight: 700; font-size: calc(var(--pt) * 18); }
-.ui-tr .ck { width: calc(var(--pt) * 30); height: calc(var(--pt) * 30); display: grid; place-items: center; border: calc(var(--pt) * 2) solid var(--rule); border-radius: calc(var(--pt) * 3); }
-.ui-tr .ck.on { background: var(--lime); border-color: var(--lime); }
-.ui-tr .ck.on::after { content: ""; width: 40%; height: 22%; border-left: calc(var(--pt) * 3) solid var(--on-lime); border-bottom: calc(var(--pt) * 3) solid var(--on-lime); transform: translateY(-20%) rotate(-45deg); }
-.ui-tr.cur { background: var(--panel); margin-inline: calc(var(--pt) * -8); padding-inline: calc(var(--pt) * 8); border-bottom-color: transparent; }
-.ui-tr.cur .ck { border-color: var(--ink); }
-.ui-add { margin-top: calc(var(--pt) * 12); font-weight: 700; font-size: calc(var(--pt) * 13); letter-spacing: 0.06em; text-transform: uppercase; color: var(--mute); }
-.ui-rest { --c: calc(var(--pt) * 18); margin-top: auto; margin-inline: calc(var(--pt) * -18); background: #141414; color: #fff; padding: calc(var(--pt) * 14) calc(var(--pt) * 18) calc(var(--pt) * 32); }
-.ui-rest .ui-row { align-items: flex-end; }
-.ui-rest .ui-cap { color: rgba(255,255,255,0.62); }
-.ui-rest .display { font-size: calc(var(--pt) * 52); font-variant-numeric: tabular-nums; }
-.ui-rest-bar { height: calc(var(--pt) * 6); background: #262626; margin: calc(var(--pt) * 10) 0 calc(var(--pt) * 12); overflow: hidden; }
-.ui-rest-bar i { display: block; height: 100%; width: 100%; background: var(--lime); transform-origin: left; }
-html.js .run .ui-rest-bar i { animation: drain 56s linear infinite; }
-@keyframes drain { from { transform: scaleX(1); } 98.2%, to { transform: scaleX(0); } }
-.ui-btns { display: grid; grid-template-columns: 1fr 1.6fr; gap: calc(var(--pt) * 8); }
-.ui-btns span { display: grid; place-items: center; height: calc(var(--pt) * 44); font-weight: 700; font-size: calc(var(--pt) * 14); letter-spacing: 0.06em; text-transform: uppercase; border: calc(var(--pt) * 2) solid #3a3a3a; }
-.ui-btns span + span { background: var(--lime); color: var(--on-lime); border-color: var(--lime); }
+.screen picture, .screen img { display: block; width: 100%; height: 100%; }
+.screen img { object-fit: cover; object-position: top center; }
 
 /* ── Hero ──────────────────────────────── */
 .hero { position: relative; padding-block: var(--space-2xl) var(--space-3xl); }
@@ -402,14 +339,11 @@ html.js .run .drain i { animation: drain 56s linear infinite; }
 .prog-media { position: relative; }
 .prog-media .notch { aspect-ratio: 4 / 5; }
 .prog-media .notch img { object-position: 50% 78%; }
-.ringcard { --c: 26px; position: absolute; right: -2%; bottom: -8%; width: 52%; background: #141414; color: #fff; padding: var(--space-lg); z-index: 2; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6); }
-.ringcard .tag { color: #fff; font-size: 0.6875rem; }
-.ringcard svg { display: block; width: 78%; margin: var(--space-md) auto; transform: rotate(-90deg); }
-.ringcard circle { fill: none; stroke-width: 15; stroke-linecap: round; }
-.ringcard .tr { stroke: #262626; }
-.legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 0.75rem; font-weight: 600; color: rgba(255,255,255,0.75); }
-.legend li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-.legend i { width: 14px; height: 3px; }
+.prog-phone { position: absolute; right: -4%; bottom: -10%; width: 44%; z-index: 2; }
+.prog-phone .device { max-width: none; }
+.rec-band { align-items: center; }
+.hist-phone { display: flex; justify-content: center; padding-block: var(--space-md); }
+.hist-phone .device { max-width: 280px; }
 @media (max-width: 899px) { .prog-media { width: min(100%, 520px); margin-inline: auto; margin-bottom: var(--space-2xl); } }
 
 /* 03 — records */
@@ -447,11 +381,17 @@ html.js .run .drain i { animation: drain 56s linear infinite; }
 .tongues h2 span:nth-child(2) { color: var(--mute); }
 .tongues h2 span:nth-child(3) { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
 
+/* ── Coming soon ───────────────────────── */
+.soon { padding-block: var(--space-4xl); border-top: 1px solid var(--rule); }
+.soon-grid { display: grid; gap: var(--space-lg); }
+.soon h2 { font-size: var(--h-1); max-width: 14ch; }
+.soon .lede { max-width: 44ch; }
+
 /* ── Final ─────────────────────────────── */
 .final { background: var(--lime); color: var(--on-lime); padding-block: var(--space-4xl); overflow: hidden; }
 .final .tag { color: var(--on-lime); }
 .final .tag::before { background: var(--on-lime); }
-.final h2 { font-size: clamp(3.6rem, 0.5rem + 13vw, 15rem); margin-top: var(--space-lg); margin-left: -0.04em; }
+.final h2 { font-size: clamp(3.4rem, 0.5rem + 11vw, 12rem); margin-top: var(--space-lg); margin-left: -0.04em; }
 .final-row { margin-top: var(--space-xl); display: flex; flex-wrap: wrap; gap: var(--space-lg); align-items: center; justify-content: space-between; }
 .final p { font-size: var(--text-xl); font-weight: 500; max-width: 30ch; }
 .final .store { background: var(--on-lime); color: var(--lime); }
@@ -493,19 +433,21 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
   html.js [data-ring] { transition: none; }
   html.js .rings:not(.in) [data-ring] { stroke-dashoffset: var(--to); }
   html.js .hero-phone .device, html.js .hero-photo, html.js .hero h1 > span, html.js .hero-run { animation: fade 300ms linear both; }
-  html.js .run .ui-rest-bar i, html.js .run .drain i { animation: none; }
+  html.js .run .drain i { animation: none; }
   .store, .words .w { transition: none; }
 }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 520px) {
   :root { --gutter: 16px; --space-4xl: 88px; }
-  .brand b { font-size: 1.25rem; }
+  .brand b { font-size: 1.125rem; }
+  .brand img { display: none; }
   .hero { padding-top: var(--space-xl); }
   .hero-photo { width: 80%; }
   .hero-phone { width: 50%; }
   .store { padding: 0 22px; }
-  .ringcard { position: relative; right: auto; bottom: auto; width: 86%; margin: -22% 0 0 auto; }
+  .prog-phone { width: 50%; right: -2%; }
+  .hist-phone .device { max-width: 62%; }
   .tile { min-height: 240px; }
 }
 @supports (animation-timing-function: linear(0, 1)) {
@@ -518,9 +460,9 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
 
 <header class="bar">
   <div class="wrap">
-    <a class="brand" href="/" aria-label="Salmark">
+    <a class="brand" href="/" aria-label="Ilyin Method">
       <img src="/assets/icon-512.webp" width="28" height="28" alt="" />
-      <b>Salmark</b>
+      <b>Ilyin&nbsp;Method</b>
     </a>
     <nav class="nav" aria-label="Разделы">
       <a href="#log"><small>01</small><span data-i18n="s1">Запись</span></a>
@@ -543,9 +485,9 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
   <section class="hero on-dark">
     <div class="wrap hero-grid">
       <div>
-        <span class="cap" data-i18n="hero.cap">Salmark — журнал тренировок для iPhone</span>
+        <span class="cap" data-i18n="hero.cap">Ilyin&nbsp;Method — журнал тренировок для iPhone</span>
         <h1 class="display" data-i18n="hero.title"><span style="--i:0">Сила —</span><span style="--i:1">это</span><span style="--i:2">система</span></h1>
-        <p class="lede" data-i18n="hero.sub">Записывайте подходы одним касанием — Salmark помнит вес, повторы и рекорды. Работает без интернета, без аккаунта и без рекламы.</p>
+        <p class="lede" data-i18n="hero.sub">Записывайте подходы одним касанием — Ilyin&nbsp;Method помнит вес, повторы и рекорды. Работает без интернета, без аккаунта и без рекламы.</p>
         <div class="cta">
           <a class="store" data-store aria-disabled="true">
             <span class="dot" aria-hidden="true"></span>
@@ -566,34 +508,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
         </picture></figure>
         <span class="hero-run" aria-hidden="true"></span>
         <div class="hero-phone">
-          <figure class="device" data-tilt role="img" data-i18n-label="alt.hero" aria-label="Экран «Сводка» в приложении: неделя 40, три кольца активности — тренировки, поднятые килограммы и минуты"><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen">
-            <div class="ui" aria-hidden="true">
-              <div class="ui-status"><span>9:41</span><svg viewBox="0 0 70 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><path d="M33 2.2a11 11 0 0 1 7.8 3.2l-1.4 1.4A9 9 0 0 0 33 4.2a9 9 0 0 0-6.4 2.6l-1.4-1.4A11 11 0 0 1 33 2.2zm0 4a7 7 0 0 1 5 2l-1.4 1.5A5 5 0 0 0 33 8.2a5 5 0 0 0-3.6 1.5L28 8.2a7 7 0 0 1 5-2zm0 4 1.6 1.6L33 13.4l-1.6-1.6z"/><rect x="46" y="1" width="21" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="48" y="3" width="15" height="6" rx="1.5"/><rect x="68" y="4" width="1.5" height="4" rx=".7"/></svg></div>
-              <div class="ui-row">
-                <div><p class="ui-hi" data-i18n="m.hi">Добрый день, Алексей</p><p class="ui-cap" data-i18n="m.date">четверг, 1 октября</p></div>
-                <span class="ui-av">А</span>
-              </div>
-              <p class="display ui-week" data-i18n="m.week">Неделя 40</p>
-              <div class="ui-stage chamfer">
-                <p class="ui-tag" data-i18n="m.act">01 / Активность</p>
-                <p class="ui-cap" data-i18n="m.this">эта неделя</p>
-                <svg class="ui-rings rings" viewBox="0 0 200 200">
-                  <circle class="tr" cx="100" cy="100" r="88" /><circle class="tr" cx="100" cy="100" r="68" /><circle class="tr" cx="100" cy="100" r="48" />
-                  <circle cx="100" cy="100" r="88" stroke="#D9FF3F" pathLength="100" data-ring style="--to:33; --rd:300ms" />
-                  <circle cx="100" cy="100" r="68" stroke="#FFFFFF" pathLength="100" data-ring style="--to:14; --rd:450ms" />
-                  <circle cx="100" cy="100" r="48" stroke="#8C8C8C" pathLength="100" data-ring style="--to:24; --rd:600ms" />
-                </svg>
-                <div class="ui-stats">
-                  <div class="ui-stat"><p class="ui-cap" data-i18n="ring.w">Тренировки</p><b>2/3</b></div>
-                  <div class="ui-stat" style="--c2:#fff"><p class="ui-cap" data-i18n="m.kg">Поднято</p><b>19 278<small>кг</small></b></div>
-                  <div class="ui-stat" style="--c2:#8c8c8c"><p class="ui-cap" data-i18n="m.min">Время</p><b>108<small>мин</small></b></div>
-                </div>
-              </div>
-              <div class="ui-card chamfer"><p class="ui-tag" data-i18n="m.streak">02 / Серия</p><p class="display" data-i18n="m.weeks">4 недели</p></div>
-              <div class="ui-card chamfer"><p class="ui-tag" data-i18n="m.last">03 / Последняя тренировка</p><p class="display" data-i18n="m.lastw">Верх тела</p></div>
-              <div class="ui-tabs"><span class="on" data-i18n="m.t1">Сводка</span><span data-i18n="m.t2">Тренировка</span><span data-i18n="m.t3">Прогресс</span><span data-i18n="m.t4">Упражнения</span></div>
-            </div>
-            <span class="island"></span></div></div></div></figure>
+          <figure class="device" data-tilt><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture><source type="image/webp" srcset="/assets/app/summary-440.webp 440w, /assets/app/summary-660.webp 660w" sizes="(min-width: 900px) 300px, 46vw" /><img src="/assets/app/summary-440.webp" width="440" height="956" fetchpriority="high" data-i18n-alt="alt.hero" alt="Экран «Сводка» в приложении: неделя 40, три кольца активности — тренировки, поднятые килограммы и минуты, план на сегодня" /></picture><span class="island"></span></div></div></div></figure>
         </div>
       </div>
     </div>
@@ -607,7 +522,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
         <div class="reveal">
           <span class="tag">01 / <span data-i18n="s1">Запись</span></span>
           <h2 class="display" style="font-size: var(--h-1); margin-top: var(--space-md)" data-i18n="log.title">Подход&nbsp;— одним касанием</h2>
-          <p class="body" style="margin-top: var(--space-lg); font-size: var(--text-lg)" data-i18n="log.body">Salmark подставляет вес и повторы с прошлого раза. Сделали столько же — отметьте галочку. Больше — прокрутите колесо с цифрами, без клавиатуры.</p>
+          <p class="body" style="margin-top: var(--space-lg); font-size: var(--text-lg)" data-i18n="log.body">Ilyin&nbsp;Method подставляет вес и повторы с прошлого раза. Сделали столько же — отметьте галочку. Больше — прокрутите колесо с цифрами, без клавиатуры.</p>
           <ul class="ticks stagger">
             <li style="--i:0" data-i18n="log.f1">Разминочные подходы — в одно касание</li>
             <li style="--i:1" data-i18n="log.f2">Дроп-сеты и подходы до отказа</li>
@@ -623,29 +538,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
             <img src="/assets/ph/deadlift.jpg" width="673" height="1200" loading="lazy" decoding="async" data-i18n-alt="ph.deadlift" alt="Становая тяга: спортсмен берёт штангу с пола, руки в магнезии" />
           </picture></figure>
           <div class="reveal" style="--d:140ms">
-            <figure class="device" data-parallax role="img" data-i18n-label="alt.log" aria-label="Экран тренировки: жим лёжа, подсказка «Пора прибавить: +2,5 кг», подходы с весом и повторами и таймер отдыха 0:55"><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen">
-              <div class="ui rest-host" aria-hidden="true">
-                <div class="ui-status"><span>9:41</span><svg viewBox="0 0 70 12"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="5" y="5.5" width="3" height="6.5" rx="1"/><rect x="10" y="3" width="3" height="9" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/><rect x="46" y="1" width="21" height="10" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="48" y="3" width="12" height="6" rx="1.5"/><rect x="68" y="4" width="1.5" height="4" rx=".7"/></svg></div>
-                <div class="ui-navrow"><span data-i18n="m.back">‹ Тренировка</span><span class="t">32:14</span></div>
-                <p class="ui-tag" data-i18n="m.exn">03 / 05 · Грудь</p>
-                <p class="display ui-ex" data-i18n="m.bench">Жим лёжа</p>
-                <p class="ui-hint"><i>↑</i><span data-i18n="m.hint">Пора прибавить: +2,5 кг</span></p>
-                <div class="ui-table">
-                  <div class="ui-tr h"><span data-i18n="m.set">Подход</span><span data-i18n="m.kgh">кг</span><span data-i18n="m.reps">Повт.</span><span></span></div>
-                  <div class="ui-tr"><span class="n w">W</span><span class="v">40</span><span class="v">10</span><span class="ck on"></span></div>
-                  <div class="ui-tr"><span class="n">1</span><span class="v">60</span><span class="v">8</span><span class="ck on"></span></div>
-                  <div class="ui-tr"><span class="n">2</span><span class="v">60</span><span class="v">8</span><span class="ck on"></span></div>
-                  <div class="ui-tr cur"><span class="n">3</span><span class="v">60</span><span class="v">8</span><span class="ck"></span></div>
-                  <div class="ui-tr"><span class="n">4</span><span class="v">60</span><span class="v">8</span><span class="ck"></span></div>
-                  <p class="ui-add" data-i18n="m.add">+ Подход</p>
-                </div>
-                <div class="ui-rest chamfer">
-                  <div class="ui-row"><div><p class="ui-cap" data-i18n="rest.label">Отдых</p><p class="display" data-countdown>0:55</p></div></div>
-                  <div class="ui-rest-bar"><i></i></div>
-                  <div class="ui-btns"><span>+15</span><span data-i18n="m.next">Дальше</span></div>
-                </div>
-              </div>
-              <span class="island"></span></div></div></div></figure>
+            <figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture><source type="image/webp" srcset="/assets/app/workout-440.webp 440w, /assets/app/workout-660.webp 660w" sizes="(min-width: 900px) 300px, 46vw" /><img src="/assets/app/workout-440.webp" width="440" height="956" loading="lazy" decoding="async" data-i18n-alt="alt.log" alt="Экран тренировки в приложении: жим штанги лёжа с подходами по весу и повторам, подсказка «Пора прибавить: +2,5 кг» и таймер отдыха" /></picture><span class="island"></span></div></div></div></figure>
           </div>
         </div>
       </div>
@@ -682,7 +575,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
           <li style="--i:0"><span class="cap" data-i18n="w1.c">Тренировки, килограммы и минуты за неделю</span><span class="display w" data-i18n="w1.w">Кольца</span></li>
           <li style="--i:1"><span class="cap" data-i18n="mus.body">Чем больше подходов, тем ярче мышца. Сразу видно, что вы прокачали, а что пропустили.</span><span class="display w" data-i18n="w2.w">Карта мышц</span></li>
           <li style="--i:2"><span class="cap" data-i18n="p2.d">Поднятый вес, тренировки и сила — по неделям, месяцам и за год.</span><span class="display w" data-i18n="p2.t">Графики</span></li>
-          <li style="--i:3"><span class="cap" data-i18n="p3.d">Жимы, тяги, ноги: Salmark подскажет, что отстаёт.</span><span class="display w" data-i18n="w4.w">Баланс</span></li>
+          <li style="--i:3"><span class="cap" data-i18n="p3.d">Жимы, тяги, ноги: Ilyin&nbsp;Method подскажет, что отстаёт.</span><span class="display w" data-i18n="w4.w">Баланс</span></li>
           <li style="--i:4"><span class="cap" data-i18n="w5.c">Повтор по дням недели и напоминания. Отпуск или болезнь не прервут серию недель.</span><span class="display w" data-i18n="w5.w">Календарь</span></li>
         </ul>
         <div class="prog-media">
@@ -690,20 +583,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
             <source type="image/webp" srcset="/assets/ph/pullup-480.webp 480w, /assets/ph/pullup-944.webp 944w" sizes="(min-width: 900px) 44vw, 92vw" />
             <img src="/assets/ph/pullup.jpg" width="673" height="1200" loading="lazy" decoding="async" data-i18n-alt="ph.pullup" alt="Спортсменка подтягивается на перекладине, вид со спины" />
           </picture></figure>
-          <div class="ringcard chamfer reveal" style="--d:200ms">
-            <span class="tag" data-i18n="m.act">01 / Активность</span>
-            <svg class="rings" viewBox="0 0 200 200" aria-hidden="true">
-              <circle class="tr" cx="100" cy="100" r="88" /><circle class="tr" cx="100" cy="100" r="68" /><circle class="tr" cx="100" cy="100" r="48" />
-              <circle cx="100" cy="100" r="88" stroke="#D9FF3F" pathLength="100" data-ring style="--to:33; --rd:0ms" />
-              <circle cx="100" cy="100" r="68" stroke="#FFFFFF" pathLength="100" data-ring style="--to:14; --rd:150ms" />
-              <circle cx="100" cy="100" r="48" stroke="#8C8C8C" pathLength="100" data-ring style="--to:24; --rd:300ms" />
-            </svg>
-            <ul class="legend">
-              <li><i style="background:#D9FF3F"></i><span data-i18n="ring.w">Тренировки</span></li>
-              <li><i style="background:#FFFFFF"></i><span data-i18n="ring.kg">Поднято, кг</span></li>
-              <li><i style="background:#8C8C8C"></i><span data-i18n="ring.min">Время, мин</span></li>
-            </ul>
-          </div>
+          <div class="prog-phone reveal" style="--d:200ms"><figure class="device" data-parallax><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture><source type="image/webp" srcset="/assets/app/progress-440.webp 440w, /assets/app/progress-660.webp 660w" sizes="(min-width: 900px) 300px, 46vw" /><img src="/assets/app/progress-440.webp" width="440" height="956" loading="lazy" decoding="async" data-i18n-alt="alt.progress" alt="Экран «Прогресс» в приложении: уровень, тренировки, поднятый вес и время за период" /></picture><span class="island"></span></div></div></div></figure></div>
         </div>
       </div>
     </div>
@@ -728,7 +608,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
         <article class="tile chamfer reveal" style="--d:100ms">
           <span class="display big" data-count="100">100</span>
           <h3 data-i18n="lvl.t">уровней</h3>
-          <p data-i18n="lvl.d">Очки опыта за подходы, тренировки и рекорды.</p>
+          <p data-i18n="lvl.d">Очки опыта за подходы, тренировки и рекорды. Медали за серии, кольца и особые тренировки.</p>
         </article>
         <article class="tile chamfer reveal" style="--d:200ms">
           <span class="display big">1ПМ</span>
@@ -741,11 +621,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
           <source type="image/webp" srcset="/assets/ph/row-480.webp 480w, /assets/ph/row-944.webp 944w" sizes="(min-width: 760px) 62vw, 92vw" />
           <img src="/assets/ph/row.jpg" width="673" height="1200" loading="lazy" decoding="async" data-i18n-alt="ph.row" alt="Тяга гантели в наклоне с опорой на скамью" />
         </picture></figure>
-        <article class="tile chamfer reveal" style="--d:120ms">
-          <span class="cap" data-i18n="game.kicker">Награды</span>
-          <h3 data-i18n="game.title2">Медали. Задание месяца.</h3>
-          <p data-i18n="med.d">Медали за серии, кольца и особые тренировки.</p>
-        </article>
+        <div class="hist-phone reveal" style="--d:120ms"><figure class="device"><div class="device-body"><span class="key key-action"></span><span class="key key-vol1"></span><span class="key key-vol2"></span><span class="key key-power"></span><div class="glass"><div class="screen"><picture><source type="image/webp" srcset="/assets/app/history-440.webp 440w, /assets/app/history-660.webp 660w" sizes="(min-width: 900px) 300px, 46vw" /><img src="/assets/app/history-440.webp" width="440" height="956" loading="lazy" decoding="async" data-i18n-alt="alt.history" alt="Экран «История» в приложении: календарь тренировок квадратами и нагрузка по дням" /></picture><span class="island"></span></div></div></div></figure></div>
       </div>
     </div>
   </section>
@@ -758,7 +634,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
         <div class="reveal">
           <span class="tag">04 / <span data-i18n="s4">Офлайн</span></span>
           <h2 class="display" data-i18n="priv.title">Ваши тренировки остаются на вашем телефоне</h2>
-          <p class="lede" data-i18n="priv.body">У Salmark нет сервера. Мы ничего не собираем и не видим.</p>
+          <p class="lede" data-i18n="priv.body">У Ilyin&nbsp;Method нет сервера. Мы ничего не собираем и не видим.</p>
           <ul class="pills stagger">
             <li style="--i:0" data-i18n="priv.1">Без аккаунта</li>
             <li style="--i:1" data-i18n="priv.2">Без рекламы</li>
@@ -783,11 +659,20 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
     </div>
   </section>
 
+  <!-- Coming soon -->
+  <section class="soon on-dark" id="soon">
+    <div class="wrap soon-grid reveal">
+      <span class="tag" data-i18n="soon.tag">Скоро</span>
+      <h2 class="display" data-i18n="soon.title">Курсы техники от Ильи Ильина</h2>
+      <p class="lede" data-i18n="soon.body">Илья Ильин, тяжёлая атлетика. Курсы техники появятся в приложении в одном из следующих обновлений.</p>
+    </div>
+  </section>
+
   <!-- Final -->
   <section class="final" id="get">
     <div class="wrap reveal">
       <span class="tag" data-i18n="final.tag">Журнал тренировок для iPhone</span>
-      <h2 class="display">Salmark</h2>
+      <h2 class="display"><span>Ilyin</span><span>Method</span></h2>
       <div class="final-row">
         <p data-i18n="final.sub">Бесплатно. Без интернета, без аккаунта и без рекламы.</p>
         <a class="store" data-store aria-disabled="true">
@@ -804,7 +689,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
   <div class="wrap">
     <div class="foot">
       <div>
-        <a class="brand" href="/" aria-label="Salmark"><b>Salmark</b></a>
+        <a class="brand" href="/" aria-label="Ilyin Method"><b>Ilyin Method</b></a>
       </div>
       <div>
         <h2 data-i18n="foot.support">Поддержка</h2>
@@ -819,7 +704,7 @@ html.js .rings:not(.in) [data-ring] { stroke-dashoffset: 100; }
         </ul>
       </div>
     </div>
-    <p class="legal" data-i18n="foot.legal">© 2026 Salmark</p>
+    <p class="legal" data-i18n="foot.legal">© 2026 Ilyin&nbsp;Method</p>
   </div>
 </footer>
 
@@ -835,19 +720,19 @@ const APP_STORE_URL = "";
 
   var I18N = {
     kk: {
-      "meta.title": "Salmark — iPhone-ға арналған жаттығу күнделігі",
+      "meta.title": "Ilyin Method — iPhone-ға арналған жаттығу күнделігі",
       "meta.desc": "Залдағы сеттерді бір түртумен жазыңыз. Аптаның сақиналары, рекордтар, бұлшықет картасы, күнтізбе. Интернетсіз, аккаунтсыз, жарнамасыз.",
       "skip": "Мазмұнға өту",
       "s1": "Жазу", "s2": "Прогресс", "s3": "Рекордтар", "s4": "Офлайн",
       "bar.cta": "Жүктеу",
-      "hero.cap": "Salmark — iPhone-ға арналған жаттығу күнделігі",
+      "hero.cap": "Ilyin&nbsp;Method — iPhone-ға арналған жаттығу күнделігі",
       "hero.title": "<span style=\"--i:0\">Күш —</span><span style=\"--i:1\">бұл</span><span style=\"--i:2\">жүйе</span>",
-      "hero.sub": "Сеттерді бір түртумен жазыңыз — Salmark салмақты, қайталауды және рекордтарды есте сақтайды. Интернетсіз, аккаунтсыз және жарнамасыз жұмыс істейді.",
+      "hero.sub": "Сеттерді бір түртумен жазыңыз — Ilyin&nbsp;Method салмақты, қайталауды және рекордтарды есте сақтайды. Интернетсіз, аккаунтсыз және жарнамасыз жұмыс істейді.",
       "hero.f1": "Тегін", "hero.f2": "Интернетсіз", "hero.f3": "Аккаунтсыз", "hero.f4": "Жарнамасыз",
       "store.soon": "Жақында App Store-да",
       "store.get": "App Store-дан жүктеу",
       "log.title": "Сет&nbsp;— бір түртумен",
-      "log.body": "Salmark өткен жолғы салмақ пен қайталауды өзі қояды. Сол қалпы орындасаңыз — белгі қойыңыз. Көбірек болса — сандар дөңгелегін айналдырыңыз, пернетақта керек емес.",
+      "log.body": "Ilyin&nbsp;Method өткен жолғы салмақ пен қайталауды өзі қояды. Сол қалпы орындасаңыз — белгі қойыңыз. Көбірек болса — сандар дөңгелегін айналдырыңыз, пернетақта керек емес.",
       "log.f1": "Қыздыру сеттері — бір түртумен",
       "log.f2": "Дроп-сеттер және шегіне дейінгі сеттер",
       "log.f3": "Суперсеттер",
@@ -855,18 +740,16 @@ const APP_STORE_URL = "";
       "log.f5": "«Қосатын уақыт» кеңесі",
       "log.f6": "Жаттығу үлгілері",
       "rest.kicker": "Демалыс таймері",
-      "rest.label": "Демалыс",
       "rest.title": "Телефон қалтада жатса да, демалыс уақыты есептеледі.",
       "rest.body": "Таймер құлып экранында және Dynamic Island-та көрінеді. 15 секунд қосыңыз немесе бірден келесі сетке өтіңіз.",
       "prog.title": "Аптаңыздың үш сақинасы",
       "prog.body": "Жаттығулар, көтерілген салмақ және залдағы минуттар. Бір аптада үшеуін де жабыңыз — медаль аласыз.",
-      "ring.w": "Жаттығулар", "ring.kg": "Көтерілді, кг", "ring.min": "Уақыт, мин",
       "w1.c": "Аптадағы жаттығулар, килограммдар және минуттар", "w1.w": "Сақиналар",
       "mus.body": "Сет неғұрлым көп болса, бұлшықет соғұрлым ашық боялады. Нені жаттықтырғаныңыз, нені өткізіп алғаныңыз бірден көрінеді.",
       "w2.w": "Бұлшықет картасы",
       "p2.t": "Графиктер",
       "p2.d": "Көтерілген салмақ, жаттығулар және күш — апта, ай және жыл бойынша.",
-      "p3.d": "Итеру, тарту, аяқ: қайсысы артта қалғанын Salmark айтып береді.",
+      "p3.d": "Итеру, тарту, аяқ: қайсысы артта қалғанын Ilyin&nbsp;Method айтып береді.",
       "w4.w": "Баланс",
       "w5.c": "Апта күндері бойынша қайталау және еске салу. Демалыс не ауру апталар сериясын үзбейді.",
       "w5.w": "Күнтізбе",
@@ -875,28 +758,22 @@ const APP_STORE_URL = "";
       "ex.title": "техникасы анимациямен көрсетілген жаттығу",
       "ex.body": "Қай бұлшықеттер жұмыс істейді, қалай дұрыс орындау керек және көбіне қай жерде қателеседі. Барлық суреттер — өзіміздің жұмысымыз.",
       "lvl.t": "деңгей",
-      "lvl.d": "Сеттер, жаттығулар және рекордтар үшін тәжірибе ұпайлары.",
+      "lvl.d": "Сеттер, жаттығулар және рекордтар үшін тәжірибе ұпайлары. Сериялар, сақиналар және ерекше жаттығулар үшін медальдар.",
       "orm.t": "есептік максимум",
-      "game.kicker": "Марапаттар",
-      "game.title2": "Медальдар. Ай тапсырмасы.",
-      "med.d": "Сериялар, сақиналар және ерекше жаттығулар үшін медальдар.",
       "priv.title": "Жаттығуларыңыз тек өз телефоныңызда қалады",
-      "priv.body": "Salmark-тың сервері жоқ. Біз ештеңе жинамаймыз және ештеңе көрмейміз.",
+      "priv.body": "Ilyin&nbsp;Method қолданбасының сервері жоқ. Біз ештеңе жинамаймыз және ештеңе көрмейміз.",
       "priv.1": "Аккаунтсыз", "priv.2": "Жарнамасыз", "priv.3": "Интернетсіз жұмыс істейді", "priv.4": "CSV-ге жүктеу", "priv.5": "Деректерді толық жою",
       "priv.link": "Қолданбаның құпиялылық саясаты →",
       "lang.body": "Қолданба үш тілде сөйлейді. Жарық және қараңғы тақырып, дыбыстар мен діріл — өзіңізге ыңғайлы етіп баптаңыз.",
+      "soon.tag": "Жақында", "soon.title": "Илья Ильиннен техника курстары", "soon.body": "Илья Ильин, ауыр атлетика. Техника курстары қолданбаның келесі жаңартуларының бірінде пайда болады.",
       "final.tag": "iPhone-ға арналған жаттығу күнделігі",
       "final.sub": "Тегін. Интернетсіз, аккаунтсыз және жарнамасыз.",
       "foot.support": "Қолдау", "foot.wa": "WhatsApp-қа жазу", "foot.docs": "Құжаттар",
-      "foot.help": "Көмек және жиі қойылатын сұрақтар", "foot.appPrivacy": "Қолданбаның құпиялылығы", "foot.legal": "© 2026 Salmark",
-      "m.hi": "Қайырлы күн, Алексей", "m.date": "бейсенбі, 1 қазан", "m.week": "40-апта", "m.act": "01 / Белсенділік", "m.this": "осы апта",
-      "m.kg": "Көтерілді", "m.min": "Уақыт", "m.streak": "02 / Серия", "m.weeks": "4 апта",
-      "m.last": "03 / Соңғы жаттығу", "m.lastw": "Дененің үсті",
-      "m.t1": "Жиынтық", "m.t2": "Жаттығу", "m.t3": "Прогресс", "m.t4": "Жаттығулар",
-      "m.back": "‹ Жаттығу", "m.exn": "03 / 05 · Кеуде", "m.bench": "Жатып итеру", "m.hint": "Қосатын уақыт: +2,5 кг",
-      "m.add": "+ Сет", "m.set": "Сет", "m.kgh": "кг", "m.reps": "Қайт.", "m.next": "Әрі қарай",
-      "alt.hero": "Қолданбадағы «Жиынтық» экраны: 40-апта, белсенділіктің үш сақинасы — жаттығулар, көтерілген салмақ және минуттар",
-      "alt.log": "Жаттығу экраны: жатып итеру, «Қосатын уақыт: +2,5 кг» кеңесі, салмақ пен қайталау және 0:55 демалыс таймері",
+      "foot.help": "Көмек және жиі қойылатын сұрақтар", "foot.appPrivacy": "Қолданбаның құпиялылығы", "foot.legal": "© 2026 Ilyin&nbsp;Method",
+      "alt.hero": "Қолданбадағы «Жиынтық» экраны: 40-апта, белсенділіктің үш сақинасы — жаттығулар, көтерілген салмақ және минуттар, бүгінгі жоспар",
+      "alt.progress": "Қолданбадағы «Прогресс» экраны: деңгей, жаттығулар, көтерілген салмақ және уақыт",
+      "alt.history": "Қолданбадағы «Тарих» экраны: шаршылармен жаттығу күнтізбесі және күндер бойынша жүктеме",
+      "alt.log": "Қолданбадағы жаттығу экраны: штанганы жатып итеру, салмақ пен қайталау бойынша сеттер, «Қосатын уақыт: +2,5 кг» кеңесі және демалыс таймері",
       "ph.overhead": "Спортшы күңгірт залда штанганы басынан жоғары ұстап тұр, артында лайм түсті жарық",
       "ph.deadlift": "Өлі тарту: спортшы штанганы еденнен көтеріп жатыр",
       "ph.hands": "Магнезиялы қолдар штанга мойнын мықтап ұстап тұр",
@@ -905,19 +782,19 @@ const APP_STORE_URL = "";
       "ph.phone": "Спортшы залдағы орындықта демалып, телефонға қарап отыр"
     },
     en: {
-      "meta.title": "Salmark — gym workout log for iPhone",
+      "meta.title": "Ilyin Method — gym workout log for iPhone",
       "meta.desc": "Log gym sets with a single tap. Weekly rings, personal records, muscle map, calendar. Works offline — no account, no ads.",
       "skip": "Skip to content",
       "s1": "Logging", "s2": "Progress", "s3": "Records", "s4": "Offline",
       "bar.cta": "Get the app",
-      "hero.cap": "Salmark — gym workout log for iPhone",
+      "hero.cap": "Ilyin&nbsp;Method — gym workout log for iPhone",
       "hero.title": "<span style=\"--i:0\">Strength</span><span style=\"--i:1\">is a</span><span style=\"--i:2\">system</span>",
-      "hero.sub": "Log a set in one tap — Salmark remembers your weights, reps and records. Works offline, with no account and no ads.",
+      "hero.sub": "Log a set in one tap — Ilyin&nbsp;Method remembers your weights, reps and records. Works offline, with no account and no ads.",
       "hero.f1": "Free", "hero.f2": "Offline", "hero.f3": "No account", "hero.f4": "No ads",
       "store.soon": "Coming soon to the App Store",
       "store.get": "Download on the App Store",
       "log.title": "One tap. Set logged",
-      "log.body": "Salmark fills in the weight and reps from last time. Did the same? Tick it off. Did more? Spin the number wheel — no keyboard needed.",
+      "log.body": "Ilyin&nbsp;Method fills in the weight and reps from last time. Did the same? Tick it off. Did more? Spin the number wheel — no keyboard needed.",
       "log.f1": "Warm-up sets in one tap",
       "log.f2": "Drop sets and sets to failure",
       "log.f3": "Supersets",
@@ -925,18 +802,16 @@ const APP_STORE_URL = "";
       "log.f5": "“Time to add weight” hint",
       "log.f6": "Workout templates",
       "rest.kicker": "Rest timer",
-      "rest.label": "Rest",
       "rest.title": "Rest keeps counting, even with your phone in your pocket.",
       "rest.body": "The timer shows on your Lock Screen and in the Dynamic Island. Add 15 seconds, or move straight on to the next set.",
       "prog.title": "Three rings for your week",
       "prog.body": "Workouts, kilograms lifted and minutes in the gym. Close all three in one week to earn a medal.",
-      "ring.w": "Workouts", "ring.kg": "Lifted, kg", "ring.min": "Time, min",
       "w1.c": "Workouts, kilograms and minutes this week", "w1.w": "Rings",
       "mus.body": "The more sets, the brighter the muscle. See at a glance what you worked and what you skipped.",
       "w2.w": "Muscle map",
       "p2.t": "Charts",
       "p2.d": "Weight lifted, workouts and strength — by week, month and year.",
-      "p3.d": "Push, pull, legs: Salmark tells you what’s falling behind.",
+      "p3.d": "Push, pull, legs: Ilyin&nbsp;Method tells you what’s falling behind.",
       "w4.w": "Balance",
       "w5.c": "Repeat on the weekdays you choose, with reminders. A holiday or sick pause won’t break your weekly streak.",
       "w5.w": "Calendar",
@@ -945,28 +820,22 @@ const APP_STORE_URL = "";
       "ex.title": "exercises with animated technique",
       "ex.body": "Which muscles work, how to do it right, and where people most often go wrong. Every illustration is our own.",
       "lvl.t": "levels",
-      "lvl.d": "Earn XP for sets, workouts and records.",
+      "lvl.d": "Earn XP for sets, workouts and records. Medals for streaks, rings and special sessions.",
       "orm.t": "estimated one-rep max",
-      "game.kicker": "Awards",
-      "game.title2": "Medals. A monthly challenge.",
-      "med.d": "Medals for streaks, rings and special sessions.",
       "priv.title": "Your workouts stay on your phone",
-      "priv.body": "Salmark has no server. We don’t collect anything, and we can’t see anything.",
+      "priv.body": "Ilyin&nbsp;Method has no server. We don’t collect anything, and we can’t see anything.",
       "priv.1": "No account", "priv.2": "No ads", "priv.3": "Works offline", "priv.4": "CSV export", "priv.5": "Delete all your data",
       "priv.link": "App privacy policy →",
       "lang.body": "The app speaks three languages. Light and dark themes, sounds and haptics — set it up your way.",
+      "soon.tag": "Coming soon", "soon.title": "Technique courses by Ilya Ilyin", "soon.body": "Ilya Ilyin, weightlifting. Technique courses will arrive in the app in a future update.",
       "final.tag": "Gym workout log for iPhone",
       "final.sub": "Free. Works offline, with no account and no ads.",
       "foot.support": "Support", "foot.wa": "Message on WhatsApp", "foot.docs": "Documents",
-      "foot.help": "Help and FAQ", "foot.appPrivacy": "App privacy", "foot.legal": "© 2026 Salmark",
-      "m.hi": "Good afternoon, Alex", "m.date": "Thursday, 1 October", "m.week": "Week 40", "m.act": "01 / Activity", "m.this": "this week",
-      "m.kg": "Lifted", "m.min": "Time", "m.streak": "02 / Streak", "m.weeks": "4 weeks",
-      "m.last": "03 / Last workout", "m.lastw": "Upper body",
-      "m.t1": "Summary", "m.t2": "Workout", "m.t3": "Progress", "m.t4": "Exercises",
-      "m.back": "‹ Workout", "m.exn": "03 / 05 · Chest", "m.bench": "Bench press", "m.hint": "Time to add: +2.5 kg",
-      "m.add": "+ Add set", "m.set": "Set", "m.kgh": "kg", "m.reps": "Reps", "m.next": "Next",
-      "alt.hero": "The app’s Summary screen: week 40 and three activity rings — workouts, kilograms lifted and minutes",
-      "alt.log": "Workout screen: bench press, a “time to add +2.5 kg” hint, sets with weight and reps, and a 0:55 rest timer",
+      "foot.help": "Help and FAQ", "foot.appPrivacy": "App privacy", "foot.legal": "© 2026 Ilyin&nbsp;Method",
+      "alt.hero": "The app’s Summary screen: week 40, three activity rings — workouts, kilograms lifted and minutes — and today’s plan",
+      "alt.progress": "The app’s Progress screen: level, workouts, weight lifted and time for the period",
+      "alt.history": "The app’s History screen: a calendar of workouts as squares and the load by day",
+      "alt.log": "The app’s workout screen: barbell bench press sets with weight and reps, a “time to add +2.5 kg” hint and the rest timer",
       "ph.overhead": "An athlete holds a barbell overhead in a dark gym, lime light behind",
       "ph.deadlift": "Deadlift: an athlete pulls a barbell from the floor, chalked hands",
       "ph.hands": "Chalked hands gripping a barbell",
@@ -1063,20 +932,22 @@ const APP_STORE_URL = "";
 
   /* Rest countdown 0:55 → 0:00, loops while its block is visible */
   function restTimer(host) {
-    var els = host.querySelectorAll("[data-countdown]"), tick = null;
+    var els = host.querySelectorAll("[data-countdown]"), tick = null, shown = "0:55", t0 = 0;
+    function paint() {
+      var left = Math.max(0, 55 - Math.floor(((performance.now() - t0) / 1000) % 56));
+      var s = "0:" + (left < 10 ? "0" : "") + left;
+      if (s !== shown) { shown = s; els.forEach(function (e) { e.textContent = s; }); }
+    }
     return function (on) {
       if (reduce) return;
-      clearInterval(tick);
+      clearInterval(tick); tick = null;
       host.classList.remove("run");
-      if (!on) { els.forEach(function (e) { e.textContent = "0:55"; }); return; }
-      void host.offsetWidth;
-      host.classList.add("run");
-      var t0 = performance.now();
-      tick = setInterval(function () {
-        var left = Math.max(0, 55 - Math.floor(((performance.now() - t0) / 1000) % 56));
-        var s = "0:" + (left < 10 ? "0" : "") + left;
-        els.forEach(function (e) { e.textContent = s; });
-      }, 200);
+      if (!on) { shown = "0:55"; els.forEach(function (e) { e.textContent = shown; }); return; }
+      requestAnimationFrame(function () {
+        host.classList.add("run");
+        t0 = performance.now();
+        tick = setInterval(paint, 500);
+      });
     };
   }
 
@@ -1102,25 +973,29 @@ const APP_STORE_URL = "";
 
   if (reduce) return;
 
-  /* Scroll parallax for phones and big section numbers */
+  /* Scroll parallax: only for elements near the viewport; all reads first, then all writes */
   var par = [].slice.call(document.querySelectorAll("[data-parallax], .num")).map(function (el) {
-    return { el: el, host: el.parentNode, f: el.classList.contains("num") ? -80 : 50 };
+    return { el: el, host: el.parentNode, f: el.classList.contains("num") ? -80 : 50, on: false, last: "" };
   });
+  var near = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { par.forEach(function (p) { if (p.host === e.target) p.on = e.isIntersecting; }); });
+    onScroll();
+  }, { rootMargin: "200px 0px" });
+  par.forEach(function (p) { near.observe(p.host); });
   var ticking = false;
   function update() {
     ticking = false;
-    var vh = window.innerHeight;
-    for (var i = 0; i < par.length; i++) {
-      var p = par[i], r = p.host.getBoundingClientRect();
-      if (r.bottom < -200 || r.top > vh + 200) continue;
-      var c = (r.top + r.height / 2 - vh / 2) / vh;
-      p.el.style.transform = "translate3d(0," + (c * -p.f).toFixed(1) + "px,0)";
+    var vh = window.innerHeight, live = [], i;
+    for (i = 0; i < par.length; i++) if (par[i].on) live.push([par[i], par[i].host.getBoundingClientRect()]);
+    for (i = 0; i < live.length; i++) {
+      var p = live[i][0], r = live[i][1];
+      var v = "translate3d(0," + (((r.top + r.height / 2 - vh / 2) / vh) * -p.f).toFixed(0) + "px,0)";
+      if (v !== p.last) { p.el.style.transform = v; p.last = v; }
     }
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", onScroll, { passive: true });
-  update();
 
   /* Pointer tilt for the hero phone (desktop only) */
   if (!finePointer) return;
