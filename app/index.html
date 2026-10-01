@@ -5,21 +5,47 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Salmark — журнал тренировок</title>
 <meta name="description" content="Salmark — журнал тренировок для iPhone. Поддержка и контакты." />
+<link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400;0,600;0,700;1,900&amp;display=swap" />
+<meta name="theme-color" content="#000000" />
+<meta name="color-scheme" content="dark light" />
 <style>
-  :root { --paper:#fbfaf8; --ink:#111; --muted:#6b6b70; --line:#e7e5e0; }
-  @media (prefers-color-scheme: dark) { :root { --paper:#0d0d0e; --ink:#f3f3f4; --muted:#9b9ba1; --line:#26262a; } }
-  body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.6 -apple-system, "Inter", system-ui, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 48px 20px 80px; }
-  h1 { font-size: 34px; line-height:1.15; margin: 0 0 8px; letter-spacing:-0.02em; }
-  h2 { font-size: 20px; margin: 36px 0 8px; }
+  :root { --lime:#D9FF3F; --on-lime:#0A0A0A; --paper:#000; --panel:#141414; --ink:#fff; --muted:#A3A3A3; --line:#2A2A2A; --mark:var(--lime);
+    --display:"Inter Tight", "Arial Narrow", -apple-system, sans-serif; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --paper:#fff; --panel:#F2F2F0; --ink:#0A0A0A; --muted:#595959; --line:#E2E2DE; --mark:#0A0A0A; } }
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { overflow-x: clip; }
+  body { margin:0; background:var(--paper); color:var(--ink); font:17px/1.6 "Inter Tight", -apple-system, system-ui, sans-serif; -webkit-font-smoothing:antialiased; }
+  .bar { background:#000; color:#fff; border-bottom:1px solid #1c1c1c; }
+  .bar div { max-width:760px; margin:0 auto; padding:0 20px; height:60px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .bar a { color:#fff; text-decoration:none; }
+  .brand { font-family:var(--display); font-weight:900; font-style:italic; text-transform:uppercase; font-size:22px; letter-spacing:-0.03em; }
+  .bar nav a { font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#cfcfcf; white-space:nowrap; }
+  .bar nav a:hover { color:#fff; }
+  main { max-width: 760px; margin: 0 auto; padding: 56px 20px 96px; }
+  .tag { display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+  .tag::before { content:""; width:10px; height:10px; background:var(--lime); }
+  h1 { font-family:var(--display); font-weight:900; font-style:italic; text-transform:uppercase; letter-spacing:-0.035em; line-height:.92; font-size:clamp(28px, 7.6vw, 50px); word-spacing:.1em; margin: 16px 0 16px; overflow-wrap:break-word; }
+  h2 { font-family:var(--display); font-weight:900; font-style:italic; text-transform:uppercase; letter-spacing:-0.02em; line-height:1; font-size:26px; word-spacing:.1em; margin: 44px 0 10px; padding-top: 18px; border-top:1px solid var(--line); }
   p, li { color: var(--ink); }
-  .muted { color: var(--muted); }
-  .lang { border-top: 1px solid var(--line); margin-top: 40px; padding-top: 8px; }
-  a { color: inherit; }
+  b { font-weight:700; }
+  .muted { color: var(--muted); font-size: 19px; }
+  .lang { margin-top: 56px; padding: 4px 24px 24px; background: var(--panel); clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%); }
+  .lang h2 { border-top:0; margin-top:16px; }
+  a { color: inherit; text-decoration-color: var(--mark); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  a:hover { background: var(--lime); color: var(--on-lime); }
+  .bar a:hover { background:none; }
+  :focus-visible { outline:3px solid var(--mark); outline-offset:3px; }
+  footer { border-top:1px solid var(--line); max-width:760px; margin:0 auto; padding:24px 20px 48px; color:var(--muted); font-size:14px; }
 </style>
 </head>
-<body><main>
+<body>
+<header class="bar"><div><a class="brand" href="/">Salmark</a><nav><a href="/app/privacy/">Конфиденциальность</a></nav></div></header>
+<main>
 
+<span class="tag">Поддержка</span>
 <h1>Salmark — журнал тренировок</h1>
 <p class="muted">Приложение для iPhone: записывайте подходы, следите за рекордами и прогрессом. Работает без интернета.</p>
 <h2>Поддержка</h2>
@@ -33,4 +59,6 @@
 <h2>English</h2>
 <p>Salmark is an offline workout log for iPhone. Support: +7 778 574 48 89 (phone, WhatsApp). <a href="/app/privacy/">Privacy policy</a>.</p>
 </section>
-</main></body></html>
+</main>
+<footer>© 2026 Salmark · <a href="/">salmark.kz</a></footer>
+</body></html>
