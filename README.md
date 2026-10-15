@@ -1,29 +1,10 @@
-# Salmark Landing
+# salmark.kz — сайт IT-студии Salmark
 
-Лендинг маркетингового агентства для медицинских клиник — salmark.kz
+Статический сайт: мобильные приложения, ИИ-боты, автоматизация, CRM.
 
-## Стек
-
-- Static HTML + Tailwind CSS (CDN)
-- Nginx в Docker
-- Railway для хостинга
-
-## Локально
-
-```bash
-docker build -t salmark-landing .
-docker run -p 8080:8080 salmark-landing
-# открой http://localhost:8080
-```
-
-## Деплой
-
-Автодеплой с GitHub через Railway на push в `main`.
-
-Домен: salmark.kz (Cloudflare DNS, Railway SSL).
-
-## Структура
-
-- `index.html` — вся страница
-- `nginx.conf` — конфиг веб-сервера (порт 8080)
-- `Dockerfile` — мульти-образ на nginx:alpine
+- Тексты и страницы — `tools/build.mjs`; после правки: `node tools/build.mjs` (пишет в `public/`)
+- Оформление — `public/assets/site.css`, поведение — `public/assets/site.js`
+- `public/app/` и `public/app/privacy/` — страницы приложения из App Store и Google Play, адреса НЕ менять
+- Заявки с формы — FormSubmit → почта владельца
+- Локально: `docker build -t salmark-landing . && docker run -p 8080:8080 salmark-landing`
+- Хостинг: Railway (сервис salmark-landing), домены salmark.kz и www.salmark.kz, DNS в Cloudflare
