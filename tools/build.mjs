@@ -6,10 +6,12 @@ import { fileURLToPath } from 'node:url';
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 const SITE = 'https://salmark.kz';
 const TODAY = new Date().toISOString().slice(0, 10);
-const LEGAL = 'ТОО «HOSHIN KANRI», БИН 201140020804, г. Астана';
+const LEGAL = 'ТОО «HOSHIN KANRI», БИН\u00a0201140020804, г.\u00a0Астана';
 
 const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const nb = s => String(s).replace(/(^|[\s«(>])([а-яёА-ЯЁA-Za-z]{1,2}|г\.)\s/g, '$1$2\u00a0').replace(/\s—/g, '\u00a0—');
+const nbH = html => html.replace(/<(h2|h3)>(.*?)<\/\1>/g, (m, t, x) => `<${t}>${nb(x)}</${t}>`);
 const strip = s => String(s).replace(/<[^>]+>/g, '');
 
 const SERVICES = [
@@ -52,7 +54,7 @@ const faqLd = faq => ({
 function head({ path, title, description, ld = [], og = '/assets/og-salmark.jpg', noindex = false }) {
   const graph = { '@context': 'https://schema.org', '@graph': [ORG, { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'Salmark', inLanguage: 'ru' }, ...ld] };
   return `<!doctype html>
-<html lang="ru" class="js">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -76,6 +78,7 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <link rel="preload" href="/assets/fonts/geologica-800-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/golostext-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
+<script>(function(r){if('IntersectionObserver'in window){r.classList.add('js');setTimeout(function(){if(!window.SM)r.classList.remove('js')},3500)}})(document.documentElement)</script>
 <link rel="stylesheet" href="/assets/site.css?v=${TODAY}">
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
 </head>
@@ -111,13 +114,13 @@ function contact(title = 'Обсудить проект', text = 'Опишите
     <form id="lead" class="rv" novalidate>
       <input type="hidden" name="_subject" value="Salmark — заявка с сайта">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <label>Имя <input name="name" autocomplete="name" maxlength="80"></label>
-      <label>Телефон или почта <input name="contact" required autocomplete="tel" maxlength="120" inputmode="text"></label>
+      <label>Имя <small>(необязательно)</small> <input name="name" autocomplete="name" maxlength="80"></label>
+      <label>Телефон или почта <small>— обязательно</small> <input name="contact" required autocomplete="tel" maxlength="120" inputmode="text"></label>
       <fieldset class="chk"><legend>Что нужно</legend>
         ${opts.map(o => `<label><input type="checkbox" name="what" value="${o}"><span>${o}</span></label>`).join('\n        ')}
       </fieldset>
       <label>Задача <textarea name="message" maxlength="4000" placeholder="Например: приложение для записи клиентов, iPhone и Android"></textarea></label>
-      <button class="btn" type="submit">Отправить ${ARROW}</button>
+      <button class="btn" type="submit">Отправить заявку ${ARROW}</button>
       <p class="status" id="leadStatus" role="status" aria-live="polite"></p>
       <p class="note">Отправляя заявку, вы соглашаетесь с <a href="/privacy/">политикой конфиденциальности</a>.</p>
     </form>
@@ -157,9 +160,9 @@ function write(path, html) {
 }
 
 const faqBlock = (faq, title = 'Частые вопросы') => `<section aria-labelledby="faq-h"><div class="wrap">
-  <h2 class="d h2 rv" id="faq-h">${title}</h2>
+  <h2 class="d h2 rv" id="faq-h">${nb(title)}</h2>
   <div class="faq rv">
-    ${faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join('\n    ')}
+    ${faq.map(([q, a]) => `<details><summary>${nb(q)}</summary><p>${a}</p></details>`).join('\n    ')}
   </div>
 </div></section>`;
 
@@ -187,7 +190,7 @@ const CASE_CARDS = {
   'zor-qadam': `<a class="case zq rv" href="/proekty/zor-qadam/">
     <div>
       <span class="mono">Приложение · iPhone и Android</span>
-      <h3>Zor Qadam</h3>
+      <h3>ZOR QADAM</h3>
       <p>Приложение лечебной физкультуры для центра реабилитации в Астане: короткие занятия при болях в спине и суставах, уроки и дневник боли.</p>
       <ul>
         <li>Нативно: SwiftUI на iPhone, Kotlin и Compose на Android</li>
@@ -232,44 +235,44 @@ const homeFaq = [
 
 write('', page({
   path: '/',
-  title: 'Разработка мобильных приложений, ИИ-ботов и CRM в Астане — Salmark',
-  description: 'IT-студия Salmark: приложения для iPhone и Android, ИИ-боты для WhatsApp и Telegram, автоматизация бизнеса и CRM. Астана, весь Казахстан. Наши продукты — Kanri, ZOR QADAM, Repstone.',
+  title: 'Разработка приложений, ИИ-ботов и CRM в Казахстане — Salmark',
+  description: 'Студия Salmark в Астане: приложения для iPhone и Android, чат-боты с ИИ для WhatsApp и Telegram, CRM и автоматизация. Работаем по всему Казахстану.',
   ld: [faqLd(homeFaq)],
 }, `<section class="hero" aria-labelledby="h1">
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="wrap">
     <div>
       <p class="mono">IT-студия · Астана · весь Казахстан</p>
-      <h1 class="d" id="h1"><span class="ln"><span>Делаем</span></span><span class="ln"><span>приложения,</span></span><span class="ln"><span>ИИ-ботов</span></span><span class="ln"><span class="ac">и CRM</span></span></h1>
-      <p class="lead">Проектируем, разрабатываем и запускаем — от первого экрана до App Store, Google Play и работающего бизнеса. Начинали со своих продуктов, их и показываем.</p>
+      <h1 class="d" id="h1"><span class="ln"><span>Приложения,</span></span><span class="ln"><span>ИИ-боты и CRM</span></span><span class="ln"><span class="ac">для бизнеса</span></span></h1>
+      <p class="lead">Сами сделали и ведём CRM Kanri и приложения ZOR QADAM и Repstone. Ваш проект начнём с прототипа, который можно открыть на телефоне.</p>
       <div class="acts"><a class="btn" href="#form">Обсудить проект ${ARROW}</a><a class="btn ghost" href="#work">Наши проекты</a></div>
     </div>
     <div class="stack" aria-hidden="true">
-      <div class="card k kanri-frame"><b>Kanri</b><img src="/assets/work/kanri-chat.webp" width="620" height="1342" alt="" fetchpriority="high"></div>
+      <div class="card k kanri-frame"><b>Kanri</b><img src="/assets/work/kanri-ios.webp" width="620" height="1342" alt=""></div>
       <div class="card z"><img src="/assets/work/zq-01.webp" width="660" height="1434" alt="" fetchpriority="high"></div>
-      <div class="card s"><img src="/assets/work/rs-01.webp" width="660" height="1434" alt=""></div>
+      <div class="card s"><img src="/assets/work/rs-01.webp" width="660" height="1434" alt="" fetchpriority="high"></div>
     </div>
   </div>
 </section>
 
-<div class="marquee" aria-hidden="true"><div class="tr">${(() => { const w = ['Мобильные приложения', 'ИИ-боты', 'CRM', 'Автоматизация', 'iOS и Android', 'WhatsApp и Telegram', 'Веб-кабинеты']; const s = w.map(x => `<span>${x}</span>`).join(''); return s + s; })()}</div></div>
+<div class="marquee" aria-hidden="true"><div class="tr">${(() => { const w = ['Kanri', 'ZOR QADAM', 'Repstone', 'iPhone', 'Android', 'WhatsApp', 'Telegram', 'Казахский и русский']; const s = w.map(x => `<span>${x}</span>`).join(''); return s + s; })()}</div></div>
 
 <section aria-labelledby="svc-h">
   <div class="wrap">
     <h2 class="d h2 rv" id="svc-h">Что делаем</h2>
     <div class="svc">
-      <a class="rv" href="/razrabotka-mobilnyh-prilozhenij/"><span class="go">${ARROW}</span><div><h3>Мобильные приложения</h3><p>Нативно на SwiftUI и Kotlin или одним кодом для двух платформ. Доводим до App Store и Google Play и поддерживаем после выхода.</p></div><div class="tags"><b>iOS</b><b>Android</b><b>SwiftUI</b><b>Kotlin</b></div></a>
-      <a class="rv" href="/razrabotka-ii-botov/"><span class="go">${ARROW}</span><div><h3>ИИ-боты</h3><p>Отвечают клиентам в WhatsApp и Telegram, записывают и продают — по вашему прайсу и расписанию, без выдумок.</p></div><div class="tags"><b>WhatsApp</b><b>Telegram</b><b>Claude</b><b>GPT</b></div></a>
-      <a class="rv" href="/avtomatizaciya-biznesa/"><span class="go">${ARROW}</span><div><h3>Автоматизация</h3><p>Напоминания, задачи, отчёты и обмен данными между программами — без ручной работы и забытых клиентов.</p></div><div class="tags"><b>Интеграции</b><b>API</b><b>Веб-хуки</b></div></a>
-      <a class="rv" href="/razrabotka-crm/"><span class="go">${ARROW}</span><div><h3>CRM</h3><p>Готовая Kanri для сферы услуг или своя система под ваши процессы — с переносом базы и обучением команды.</p></div><div class="tags"><b>Воронки</b><b>Расписание</b><b>Касса</b><b>Аналитика</b></div></a>
+      <a class="rv" href="/razrabotka-mobilnyh-prilozhenij/"><span class="go">${ARROW}</span><div><h3>Мобильные приложения</h3><p>Для iPhone и Android. Сами проходим проверку App Store и Google Play и выпускаем обновления после запуска.</p></div><div class="tags"><b>iPhone</b><b>Android</b><b>Публикация</b><b>Обновления</b></div></a>
+      <a class="rv" href="/razrabotka-ii-botov/"><span class="go">${ARROW}</span><div><h3>ИИ-боты</h3><p>Отвечают клиентам в WhatsApp и Telegram и записывают на свободное время. Цены берут из вашего прайса, а чего не знают, передают администратору.</p></div><div class="tags"><b>WhatsApp</b><b>Telegram</b><b>Запись</b><b>Ответы 24/7</b></div></a>
+      <a class="rv" href="/avtomatizaciya-biznesa/"><span class="go">${ARROW}</span><div><h3>Автоматизация</h3><p>Клиенту уходит напоминание о записи. Если он не пришёл, администратор получает задачу перезвонить. Данные между программами переносятся сами.</p></div><div class="tags"><b>Напоминания</b><b>Задачи</b><b>Связь программ</b></div></a>
+      <a class="rv" href="/razrabotka-crm/"><span class="go">${ARROW}</span><div><h3>CRM</h3><p>Салону или клинике подойдёт наша Kanri. Если процессы у вас свои, сделаем CRM под них. Базу перенесём, сотрудников научим.</p></div><div class="tags"><b>Воронки</b><b>Расписание</b><b>Касса</b><b>Аналитика</b></div></a>
     </div>
   </div>
 </section>
 
 <section id="work" aria-labelledby="work-h">
   <div class="wrap">
-    <h2 class="d h2 rv" id="work-h">Свои продукты — лучшее портфолио</h2>
-    <p class="sub rv">Чужие логотипы не показываем. Вот что мы сделали и поддерживаем сами — от первой строки кода до магазинов приложений.</p>
+    <h2 class="d h2 rv" id="work-h">Что мы уже сделали</h2>
+    <p class="sub rv">Kanri, ZOR QADAM и Repstone мы написали сами и ведём до сих пор. По ним видно, как мы работаем: от прототипа до публикации.</p>
     <div class="cases">
       ${CASE_CARDS.kanri}
       ${CASE_CARDS['zor-qadam']}
@@ -278,26 +281,26 @@ write('', page({
   </div>
 </section>
 
-<section aria-labelledby="how-h">
+<section class="light" aria-labelledby="how-h">
   <div class="wrap">
     <h2 class="d h2 rv" id="how-h">Как работаем</h2>
     <ol class="steps rv">
       <li><h3>Разговор</h3><p>Разбираемся в задаче: кто пользователь, что он должен сделать, как это принесёт деньги.</p></li>
       <li><h3>Прототип</h3><p>Показываем экраны до кода. Кликаете, правите — меняем, пока всё не станет ясно.</p></li>
-      <li><h3>Разработка</h3><p>Работаем этапами. В конце каждого — рабочая версия на вашем телефоне, а не отчёт.</p></li>
+      <li><h3>Разработка</h3><p>Работаем этапами. В конце каждого ставите свежую версию на свой телефон и проверяете её сами.</p></li>
       <li><h3>Запуск</h3><p>Публикуем в App Store и Google Play, подключаем домен, аналитику и WhatsApp.</p></li>
       <li><h3>Поддержка</h3><p>Следим за ошибками, обновляем под новые iOS и Android, развиваем дальше.</p></li>
     </ol>
   </div>
 </section>
 
-<section aria-labelledby="rules-h" style="padding-top:0">
+<section aria-labelledby="rules-h">
   <div class="wrap">
     <h2 class="d h2 rv" id="rules-h">Как мы думаем</h2>
     <div class="rules rv">
       <div><h3>Сначала — зачем</h3><p>Не начинаем код, пока не ясно, какую цифру в бизнесе он должен сдвинуть: заявки, записи, время сотрудников.</p></div>
       <div><h3>ИИ без фантазий</h3><p>Бот берёт цены и свободное время из ваших данных. Чего не знает — не придумывает, а передаёт человеку.</p></div>
-      <div><h3>Показываем, а не рассказываем</h3><p>Каждый этап заканчивается тем, что можно потрогать: прототипом, сборкой на телефоне, страницей.</p></div>
+      <div><h3>Сбои не молчат</h3><p>Каждая автоматизация ведёт журнал. Если сообщение не ушло или связь с WhatsApp оборвалась, система сразу сообщит об этом владельцу.</p></div>
       <div><h3>Данные под контролем</h3><p>Чувствительные данные можно обрабатывать локальными ИИ-моделями — без отправки в облако.</p></div>
     </div>
   </div>
@@ -305,7 +308,7 @@ write('', page({
 
 <section aria-labelledby="tech-h" style="padding-top:0">
   <div class="wrap tech">
-    <div class="rv"><h2 class="d h2" id="tech-h">На чём делаем</h2><p class="muted" style="max-width:40ch">Берём проверенные инструменты, с которыми приложение проживёт годы, а не модные на сезон.</p></div>
+    <div class="rv"><h2 class="d h2" id="tech-h">На чём делаем</h2><p class="muted" style="max-width:40ch">На этих инструментах написаны Kanri, ZOR QADAM и Repstone.</p></div>
     <div class="rv">
       <div class="group"><span class="mono">Мобильные</span><div class="chips"><b>Swift</b><b>SwiftUI</b><b>Kotlin</b><b>Jetpack Compose</b><b>Capacitor</b></div></div>
       <div class="group"><span class="mono">Веб и сервер</span><div class="chips"><b>TypeScript</b><b>Next.js</b><b>React</b><b>Node.js</b><b>PostgreSQL</b></div></div>
@@ -321,15 +324,15 @@ ${faqBlock(homeFaq)}`));
 const SVC_PAGES = [
   {
     slug: 'razrabotka-mobilnyh-prilozhenij',
-    title: 'Разработка мобильных приложений для iOS и Android в Астане — Salmark',
-    description: 'Создаём мобильные приложения для iPhone и Android: нативно на SwiftUI и Kotlin или кроссплатформенно. Прототип, разработка, публикация в App Store и Google Play, поддержка.',
-    h1: 'Разработка мобильных приложений',
-    lead: 'Приложения для iPhone и Android — нативно или одним кодом на обе платформы. Ведём от прототипа до публикации в App Store и Google Play и остаёмся рядом после выхода.',
+    title: 'Разработка мобильных приложений в Астане — Salmark',
+    description: 'Приложения для iPhone и Android: прототип, разработка, публикация в App Store и Google Play, обновления. Астана, работаем по всему Казахстану.',
+    h1: 'Разработка мобильных приложений для iPhone и Android',
+    lead: 'Приложения для iPhone и Android — нативно или одним кодом на обе платформы. Ведём от прототипа до публикации в App Store и Google Play и выпускаем обновления после выхода.',
     serviceType: 'Разработка мобильных приложений',
     what: [
-      ['Под ключ: от идеи до магазинов', 'Прототип, дизайн, разработка, сервер, публикация и поддержка — одна команда отвечает за всё приложение целиком.'],
+      ['От прототипа до магазинов', 'Прототип, дизайн, приложение, сервер, публикация и поддержка. Не нужно отдельно искать дизайнера, программиста и того, кто выложит приложение в App Store.'],
       ['Нативные iOS и Android', 'SwiftUI на iPhone, Kotlin и Jetpack Compose на Android. Когда важны скорость, плавность и возможности системы: виджеты, уведомления, Face ID.'],
-      ['Приложение к вашему сервису', 'Если у вас уже есть сайт или кабинет — делаем приложение на общем коде через Capacitor. Быстрее и дешевле поддерживать.'],
+      ['Приложение к вашему сервису', 'Если у вас уже есть сайт или личный кабинет, собираем приложение на том же коде. Так быстрее, а поддерживать одну систему дешевле, чем две.'],
       ['Публикация', 'Карточки, скриншоты на трёх языках, прохождение проверки Apple и Google, ответы на отказы.'],
       ['Поддержка после выхода', 'Обновления под новые версии iOS и Android, разбор падений, новые функции.'],
     ],
@@ -354,23 +357,23 @@ const SVC_PAGES = [
       ['Сколько стоит мобильное приложение?', 'Цена зависит от числа экранов, платформ, интеграций и того, нужен ли сервер. После разговора и прототипа называем точную сумму и разбиваем её на этапы.'],
       ['Сколько времени занимает разработка?', 'Сроки называем вместе с ценой. Работаем этапами: в конце каждого вы ставите свежую версию на свой телефон и видите прогресс сами.'],
       ['Можно сразу на iPhone и Android?', 'Да. Нативно — два приложения с общей логикой и одинаковым дизайном; кроссплатформенно — один код на обе системы.'],
-      ['Поддерживаете казахский язык?', 'Да. Проверяем, что шрифты содержат все казахские буквы, а интерфейс проверяем на длинных казахских словах.'],
+      ['Поддерживаете казахский язык?', 'Да. ZOR QADAM и Repstone вышли на казахском с первой версии. Берём шрифты, в которых есть все казахские буквы, и проверяем экраны на длинных казахских словах.'],
       ['Кто публикует приложение в магазинах?', 'Мы: готовим карточки, скриншоты и тексты, проходим проверку Apple и Google. Аккаунт разработчика лучше оформить на вашу компанию.'],
     ],
   },
   {
     slug: 'razrabotka-ii-botov',
-    title: 'Разработка ИИ-ботов для WhatsApp и Telegram — Salmark, Астана',
-    description: 'ИИ-боты и ИИ-ассистенты для бизнеса: отвечают клиентам в WhatsApp и Telegram, записывают, продают, передают сложное человеку. Работают на ваших данных: прайсе, расписании, базе знаний.',
-    h1: 'ИИ-боты для WhatsApp и Telegram',
-    lead: 'Ассистент отвечает клиентам в любое время, записывает, продаёт и передаёт сложные вопросы человеку. Он знает ваш прайс, расписание и правила — и не придумывает того, чего нет.',
+    title: 'Чат-бот для WhatsApp и Telegram с ИИ для бизнеса — Salmark',
+    description: 'ИИ-бот отвечает клиентам в WhatsApp и Telegram и записывает на свободное время. Цены берёт из вашего прайса, сложное передаёт администратору.',
+    h1: 'Чат-боты с ИИ для WhatsApp и Telegram',
+    lead: 'Бот отвечает клиентам в WhatsApp и Telegram днём и ночью и записывает на свободное время. Цены и окна берёт из вашего прайса и расписания. Если в данных нет ответа, вопрос уходит администратору вместе с перепиской.',
     serviceType: 'Разработка ИИ-ботов',
     what: [
       ['ИИ-администратор', 'Отвечает на вопросы о ценах и услугах, подбирает свободное время и записывает клиента в расписание. Так работает Айя в нашей Kanri.'],
       ['ИИ-продавец', 'Ведёт переписку с новыми заявками, отвечает на возражения, мягко напоминает замолчавшим — без спама и рассылок пачкой.'],
       ['Ассистент для команды', 'Отвечает сотрудникам по базе знаний, регламентам и цифрам бизнеса: «сколько записей на завтра», «кто не пришёл».'],
       ['Звонки и голосовые', 'Расшифровка звонков и голосовых сообщений, краткие выжимки и разбор работы администраторов.'],
-      ['Каналы', 'WhatsApp — обычный номер или официальный API Meta, Telegram, чат на сайте.'],
+      ['Каналы', 'WhatsApp: обычный номер по QR-коду или официальный API Meta. Telegram.'],
     ],
     body: `<h2>Почему наш бот не выдумывает</h2>
 <p>Главная беда ИИ-ботов — уверенные ответы, которых нет в реальности: несуществующая скидка, занятое время, услуга, которую вы не оказываете. Мы строим ботов так, чтобы цены, услуги и свободные окна бот брал только из ваших данных — прайса, расписания, CRM.</p>
@@ -379,7 +382,7 @@ const SVC_PAGES = [
 <ul>
 <li>Собираем факты: прайс, услуги, правила записи и отмены, частые вопросы</li>
 <li>Пишем сценарии и прогоняем бота на тестовых диалогах до запуска</li>
-<li>Подключаем канал: WhatsApp, Telegram или сайт</li>
+<li>Подключаем канал: WhatsApp или Telegram</li>
 <li>Первые недели читаем живые переписки и правим поведение</li>
 <li>Показываем отчёт: сколько диалогов, сколько записей, где бот передал человеку</li>
 </ul>
@@ -397,10 +400,10 @@ const SVC_PAGES = [
   },
   {
     slug: 'avtomatizaciya-biznesa',
-    title: 'Автоматизация бизнес-процессов и интеграции — Salmark, Астана',
-    description: 'Автоматизируем рутину: напоминания клиентам в WhatsApp, задачи сотрудникам, отчёты, обмен данными между CRM, телефонией и сайтом. Интеграции через API и веб-хуки.',
-    h1: 'Автоматизация бизнес-процессов',
-    lead: 'Убираем ручную работу: данные сами переходят между программами, напоминания и отчёты уходят вовремя, а сотрудник видит задачу, а не ищет её.',
+    title: 'Автоматизация бизнеса и интеграции в Казахстане — Salmark',
+    description: 'Напоминания клиентам в WhatsApp, задачи сотрудникам, обмен данными между CRM, телефонией и сайтом через API. Астана и весь Казахстан.',
+    h1: 'Автоматизация бизнеса и интеграции',
+    lead: 'Убираем ручную работу. Данные сами переходят между программами, напоминания и отчёты уходят вовремя, задача сама появляется у нужного сотрудника.',
     serviceType: 'Автоматизация бизнес-процессов',
     what: [
       ['Сначала — карта процесса', 'Смотрим, где теряются клиенты и часы сотрудников, и автоматизируем то, что окупится, а не всё подряд.'],
@@ -414,7 +417,7 @@ const SVC_PAGES = [
 <ul>
 <li>Напоминания о записи в WhatsApp с подтверждением ответом клиента</li>
 <li>Задача администратору, когда клиент не пришёл</li>
-<li>Поздравление с днём рождения и начисление бонусов</li>
+<li>Поздравление с днём рождения в WhatsApp и бонус по правилам клиники</li>
 <li>Списание расходников со склада при оплате услуги</li>
 <li>Расчёт зарплаты специалистов по проценту или ставке</li>
 <li>Записи звонков из телефонии Sipuni — с расшифровкой и оценкой разговора</li>
@@ -434,21 +437,21 @@ const SVC_PAGES = [
   },
   {
     slug: 'razrabotka-crm',
-    title: 'Разработка и внедрение CRM-системы в Астане — Salmark',
-    description: 'Разработка CRM под ваш бизнес и внедрение готовой Kanri для салонов, студий и клиник: воронки, расписание, касса, WhatsApp, аналитика. Перенос базы, настройка, обучение.',
-    h1: 'Разработка и внедрение CRM',
-    lead: 'Два пути: готовая Kanri для сферы услуг — запуск за несколько дней, или своя CRM под ваши процессы. Подскажем честно, что выгоднее именно вам.',
+    title: 'Внедрение и разработка CRM в Астане и Казахстане — Salmark',
+    description: 'Готовая CRM Kanri для салонов, студий и клиник или своя CRM под ваши процессы. Перенос базы, настройка, обучение сотрудников. Астана, весь Казахстан.',
+    h1: 'Внедрение и разработка CRM',
+    lead: 'Есть два пути. Салону, студии или клинике подойдёт наша Kanri: регистрируетесь на kanri.kz и 7 дней работаете бесплатно, карта не нужна. Если процессы у вас свои, сделаем CRM под них. Что выгоднее, скажем после разговора.',
     serviceType: 'Разработка CRM-систем',
     what: [
       ['Готовая или своя — решаем вместе', 'Смотрим на процессы, число сотрудников и бюджет. Если подходит готовое решение — не будем продавать разработку.'],
-      ['Kanri для сферы услуг', 'Салоны, студии, клиники, стоматологии, лаборатории: расписание, клиенты, касса, зарплата, склад, WhatsApp. Своя разработка, работает сегодня.'],
+      ['Kanri для сферы услуг', 'Салоны, студии, клиники, стоматологии, лаборатории: расписание, клиенты, касса, зарплата, склад, WhatsApp в одной программе.'],
       ['Своя CRM', 'Когда процессы нестандартные: свои воронки, роли, документы, отчёты, приложение для сотрудников.'],
       ['Перенос базы', 'Клиенты и услуги переезжают из Excel или выгрузки старой программы.'],
       ['Обучение команды', 'Показываем сотрудникам, как работать, и остаёмся на связи в первые недели.'],
     ],
     body: `<h2>Kanri — готовая CRM для бизнеса с записью</h2>
 <p><a href="/proekty/kanri/">Kanri</a> — наша CRM для салонов, студий и клиник. В ней расписание по специалистам и кабинетам, карточки клиентов с перепиской WhatsApp, касса с Kaspi QR и наличными, зарплата, бонусы, склад, медкарта с МКБ-10 и зубной формулой, воронки продаж и аналитика.</p>
-<p>Стоимость — 20 000 ₸ в месяц за филиал или 120 000 ₸ в год, число сотрудников на цену не влияет. Первые 7 дней — бесплатно. Подробнее — на <a href="https://kanri.kz" rel="noopener">kanri.kz</a>.</p>
+<p>Стоимость — 20 000 ₸ в месяц за филиал или 120 000 ₸ в год, число сотрудников на цену не влияет. Первые 7 дней бесплатно, карта не нужна. Подробнее — на <a href="https://kanri.kz" rel="noopener">kanri.kz</a>.</p>
 <h2>Когда нужна своя CRM</h2>
 <ul>
 <li>Процесс продажи длинный и непохожий на типовой: тендеры, производство, проекты</li>
@@ -468,7 +471,7 @@ const SVC_PAGES = [
 </ul>`,
     side: `<img class="shot" src="/assets/work/kanri-ios.webp" width="620" height="1342" loading="lazy" alt="Расписание Kanri в приложении для iPhone" style="max-width:320px">`,
     faq: [
-      ['Сколько стоит внедрение Kanri?', 'Подписка — 20 000 ₸ в месяц за филиал или 120 000 ₸ в год. Перенос базы из Excel — бесплатно. Настройку под ключ можно заказать отдельно, подробности на kanri.kz.'],
+      ['Сколько стоит внедрение Kanri?', 'Подписка стоит 20 000 ₸ в месяц за филиал или 120 000 ₸ в год, число сотрудников на цену не влияет. Перенос базы из Excel бесплатный. Настройка с нашей помощью (заведение, WhatsApp, обучение) стоит 150 000 ₸ разово, при оплате за год 30 000 ₸. Она по желанию.'],
       ['Сколько стоит своя CRM?', 'Зависит от числа процессов, ролей и интеграций. После разбора процессов называем цену по этапам: сначала основное, потом остальное.'],
       ['Можно перенести базу из старой программы?', 'Да. Клиентов и услуги переносим из Excel или выгрузки старой системы.'],
       ['CRM будет работать на телефоне?', 'Kanri работает в браузере и в приложении для iPhone. Для своей CRM делаем мобильное приложение, если оно нужно сотрудникам.'],
@@ -488,26 +491,28 @@ for (const s of SVC_PAGES) {
     ],
   }, `<section class="page-hero">
   <div class="wrap">
+    <div class="ph-grid"><div>
     ${crumbs([['Главная', '/'], [s.h1, path]])}
-    <h1 class="d">${s.h1}</h1>
+    <h1 class="d">${nb(s.h1)}</h1>
     <p class="lead">${s.lead}</p>
     <a class="btn" href="#form">Обсудить проект ${ARROW}</a>
+    </div><div class="ph-art">${s.side}</div></div>
   </div>
 </section>
 <section aria-label="Что входит">
   <div class="wrap what">
-    ${s.what.map(([h, p]) => `<div class="rv"><h3>${h}</h3><p>${p}</p></div>`).join('\n    ')}
+    ${s.what.map(([h, p]) => `<div class="rv"><h3>${nb(h)}</h3><p>${p}</p></div>`).join('\n    ')}
   </div>
 </section>
 <section style="padding-top:0">
-  <div class="wrap split">
-    <div class="prose rv">${s.body}</div>
-    <div class="side rv">${s.side}</div>
+  <div class="wrap split one">
+    <div class="prose rv">${nbH(s.body)}</div>
+    <div class="side only-m">${s.side}</div>
   </div>
 </section>
 ${faqBlock(s.faq)}
 <section style="padding-top:0" aria-label="Другие услуги">
-  <div class="wrap"><p class="mono" style="margin-bottom:16px">Ещё мы делаем</p><div class="next">${others.map(o => `<a href="/${o.slug}/">${o.short}</a>`).join('')}<a href="/proekty/">Наши проекты</a></div></div>
+  <div class="wrap"><p class="mono" style="margin-bottom:16px">Ещё мы делаем</p><div class="next">${others.map(o => `<a href="/${o.slug}/">${o.short}${ARROW}</a>`).join('')}<a href="/proekty/">Наши проекты${ARROW}</a></div></div>
 </section>`, path));
 }
 
@@ -593,7 +598,7 @@ for (const c of CASE_PAGES) {
       { '@type': 'CreativeWork', name: c.name, description: c.description, creator: { '@id': SITE + '/#org' }, url: SITE + path },
       crumbsLd([['Главная', '/'], ['Проекты', '/proekty/'], [c.name, path]]),
     ],
-  }, `<section class="page-hero">
+  }, `<section class="page-hero ${c.cls}">
   <div class="wrap">
     ${crumbs([['Главная', '/'], ['Проекты', '/proekty/'], [c.name, path]])}
     <h1 class="d">${c.name}</h1>
@@ -603,12 +608,12 @@ for (const c of CASE_PAGES) {
 </section>
 <section>
   <div class="wrap split">
-    <div class="prose rv">${c.body}<p><a href="${c.link[0]}" rel="noopener">${c.link[1]} →</a></p></div>
+    <div class="prose rv">${nbH(c.body)}<p><a href="${c.link[0]}" rel="noopener">${c.link[1]} →</a></p></div>
     <div class="side rv">${c.pics}</div>
   </div>
 </section>
 <section style="padding-top:0" aria-label="Другие проекты">
-  <div class="wrap"><p class="mono" style="margin-bottom:16px">Другие проекты и услуги</p><div class="next">${CASE_PAGES.filter(x => x !== c).map(o => `<a href="/proekty/${o.slug}/">${o.name}</a>`).join('')}<a href="/razrabotka-mobilnyh-prilozhenij/">Мобильные приложения</a><a href="/razrabotka-ii-botov/">ИИ-боты</a></div></div>
+  <div class="wrap"><p class="mono" style="margin-bottom:16px">Другие проекты и услуги</p><div class="next">${CASE_PAGES.filter(x => x !== c).map(o => `<a href="/proekty/${o.slug}/">${o.name}${ARROW}</a>`).join('')}<a href="/razrabotka-mobilnyh-prilozhenij/">Мобильные приложения${ARROW}</a><a href="/razrabotka-ii-botov/">ИИ-боты${ARROW}</a></div></div>
 </section>`, '/proekty/'));
 }
 

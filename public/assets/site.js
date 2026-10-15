@@ -1,4 +1,5 @@
 (() => {
+  window.SM = 1;
   const d = document, root = d.documentElement;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -19,21 +20,30 @@
     const open = root.classList.toggle('menu-open');
     burger.setAttribute('aria-expanded', open);
   });
-  d.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => {
-    root.classList.remove('menu-open'); burger.setAttribute('aria-expanded', false);
-  }));
+  const closeMenu = () => { root.classList.remove('menu-open'); burger.setAttribute('aria-expanded', false); };
+  d.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', closeMenu));
+  addEventListener('keydown', e => { if (e.key === 'Escape' && root.classList.contains('menu-open')) { closeMenu(); burger.focus(); } });
 
-  // Появление блоков: показывает, что страница живая, и ведёт взгляд сверху вниз
-  if (!reduce && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => es.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    }), { rootMargin: '0px 0px -12% 0px' });
+  // Появление блоков: ведёт взгляд сверху вниз; соседей — лесенкой 70 мс
+  if (root.classList.contains('js')) {
+    const done = e => {
+      if (e.target !== e.currentTarget || (e.propertyName !== 'transform' && !reduce)) return;
+      const el = e.currentTarget; el.classList.remove('rv', 'in'); el.style.removeProperty('--d');
+      el.removeEventListener('transitionend', done); // дальше работают собственные переходы элемента (наведение)
+    };
+    const io = new IntersectionObserver(es => {
+      let i = 0;
+      es.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.setProperty('--d', Math.min(i++, 4) * 70 + 'ms');
+        el.addEventListener('transitionend', done);
+        el.classList.add('in'); io.unobserve(el);
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
     d.querySelectorAll('.rv').forEach(el => io.observe(el));
-  } else {
-    root.classList.remove('js');
   }
   const hero = d.querySelector('.hero');
-  if (hero) requestAnimationFrame(() => setTimeout(() => hero.classList.add('in'), 60));
 
   // Карточки проектов в первом экране чуть следуют за мышью — отклик на движение, только на компьютере
   const cards = d.querySelectorAll('.hero .card');
@@ -45,7 +55,6 @@
         const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
         cards.forEach((c, i) => {
           const k = (i + 1) * 9;
-          c.classList.add('moved');
           c.style.setProperty('--px', (x * k).toFixed(1) + 'px');
           c.style.setProperty('--py', (y * k).toFixed(1) + 'px');
         });

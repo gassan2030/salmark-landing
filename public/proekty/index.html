@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru" class="js">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -23,6 +23,7 @@
 <link rel="preload" href="/assets/fonts/geologica-800-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/golostext-400-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
+<script>(function(r){if('IntersectionObserver'in window){r.classList.add('js');setTimeout(function(){if(!window.SM)r.classList.remove('js')},3500)}})(document.documentElement)</script>
 <link rel="stylesheet" href="/assets/site.css?v=2026-10-15">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"ProfessionalService","@id":"https://salmark.kz/#org","name":"Salmark","legalName":"ТОО «HOSHIN KANRI»","url":"https://salmark.kz/","logo":"https://salmark.kz/assets/salmark-512.png","image":"https://salmark.kz/assets/og-salmark.jpg","description":"IT-студия в Астане: разработка мобильных приложений для iOS и Android, ИИ-ботов, автоматизация бизнеса и CRM.","address":{"@type":"PostalAddress","addressLocality":"Астана","addressCountry":"KZ"},"areaServed":{"@type":"Country","name":"Казахстан"},"knowsAbout":["Разработка мобильных приложений","iOS","Android","ИИ-боты","Чат-боты для WhatsApp","CRM","Автоматизация бизнес-процессов"],"taxID":"201140020804"},{"@type":"WebSite","@id":"https://salmark.kz/#site","url":"https://salmark.kz/","name":"Salmark","inLanguage":"ru"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://salmark.kz/"},{"@type":"ListItem","position":2,"name":"Проекты","item":"https://salmark.kz/proekty/"}]}]}</script>
 </head>
@@ -73,7 +74,7 @@
     <a class="case zq rv" href="/proekty/zor-qadam/">
     <div>
       <span class="mono">Приложение · iPhone и Android</span>
-      <h3>Zor Qadam</h3>
+      <h3>ZOR QADAM</h3>
       <p>Приложение лечебной физкультуры для центра реабилитации в Астане: короткие занятия при болях в спине и суставах, уроки и дневник боли.</p>
       <ul>
         <li>Нативно: SwiftUI на iPhone, Kotlin и Compose на Android</li>
@@ -117,8 +118,8 @@
     <form id="lead" class="rv" novalidate>
       <input type="hidden" name="_subject" value="Salmark — заявка с сайта">
       <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <label>Имя <input name="name" autocomplete="name" maxlength="80"></label>
-      <label>Телефон или почта <input name="contact" required autocomplete="tel" maxlength="120" inputmode="text"></label>
+      <label>Имя <small>(необязательно)</small> <input name="name" autocomplete="name" maxlength="80"></label>
+      <label>Телефон или почта <small>— обязательно</small> <input name="contact" required autocomplete="tel" maxlength="120" inputmode="text"></label>
       <fieldset class="chk"><legend>Что нужно</legend>
         <label><input type="checkbox" name="what" value="Приложение"><span>Приложение</span></label>
         <label><input type="checkbox" name="what" value="ИИ-бот"><span>ИИ-бот</span></label>
@@ -127,7 +128,7 @@
         <label><input type="checkbox" name="what" value="Другое"><span>Другое</span></label>
       </fieldset>
       <label>Задача <textarea name="message" maxlength="4000" placeholder="Например: приложение для записи клиентов, iPhone и Android"></textarea></label>
-      <button class="btn" type="submit">Отправить <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="btn" type="submit">Отправить заявку <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <p class="status" id="leadStatus" role="status" aria-live="polite"></p>
       <p class="note">Отправляя заявку, вы соглашаетесь с <a href="/privacy/">политикой конфиденциальности</a>.</p>
     </form>
@@ -139,7 +140,7 @@
       <div>
         <a class="logo" href="/"><i>S</i>Salmark</a>
         <p class="muted" style="max-width:34ch;margin:16px 0 0">IT-студия в Астане: мобильные приложения, ИИ-боты, автоматизация и CRM.</p>
-        <p class="legal">ТОО «HOSHIN KANRI», БИН 201140020804, г. Астана</p>
+        <p class="legal">ТОО «HOSHIN KANRI», БИН 201140020804, г. Астана</p>
       </div>
       <div><h4>Услуги</h4><ul><li><a href="/razrabotka-mobilnyh-prilozhenij/">Мобильные приложения</a></li><li><a href="/razrabotka-ii-botov/">ИИ-боты и ассистенты</a></li><li><a href="/avtomatizaciya-biznesa/">Автоматизация бизнеса</a></li><li><a href="/razrabotka-crm/">Разработка CRM</a></li></ul></div>
       <div><h4>Проекты</h4><ul><li><a href="/proekty/kanri/">Kanri</a></li><li><a href="/proekty/zor-qadam/">ZOR QADAM</a></li><li><a href="/proekty/repstone/">Repstone</a></li></ul></div>
