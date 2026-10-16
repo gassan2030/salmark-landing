@@ -4,6 +4,7 @@
 //   node tools/google-search-console.mjs all    — подтвердить сайт, добавить владельца, отправить sitemap
 import { execSync } from 'node:child_process';
 import { createSign } from 'node:crypto';
+import { writeFileSync } from 'node:fs';
 
 const SITE = 'https://salmark.kz/';
 const OWNER = 'gassanov2030@gmail.com';
@@ -33,7 +34,9 @@ const id = encodeURIComponent(SITE);
 const site = { type: 'SITE', identifier: SITE };
 
 if (process.argv[2] === 'token') {
-  await call('POST', `${SV}/token`, { site, verificationMethod: 'FILE' });
+  const { token } = await call('POST', `${SV}/token`, { site, verificationMethod: 'FILE' });
+  writeFileSync(new URL(`../public/${token}`, import.meta.url), `google-site-verification: ${token}`);
+  console.log('файл подтверждения:', token);
 } else if (process.argv[2] === 'all') {
   await call('POST', `${SV}/webResource?verificationMethod=FILE`, { site });
   const res = await call('GET', `${SV}/webResource/${id}`);
