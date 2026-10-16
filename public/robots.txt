@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://salmark.kz/sitemap.xml
-Host: https://salmark.kz
