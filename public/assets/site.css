@@ -287,7 +287,7 @@ section{padding:clamp(56px,7vw,96px) 0}
 
 /* Подвал */
 footer{padding:60px 0 0;border-top:1px solid var(--line);overflow:hidden}
-footer .cols{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:32px;font-size:15px}
+footer .cols{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(0,1fr));gap:32px;font-size:15px}
 footer h4{font:500 13px/1 var(--fm);text-transform:uppercase;letter-spacing:.04em;color:var(--mu);margin:0 0 16px}
 footer ul{list-style:none;padding:0;margin:0;display:grid;gap:0}
 footer a{text-decoration:none;color:#d6d3cb;display:inline-block;padding:9px 0}
@@ -352,3 +352,8 @@ footer .word{font:800 calc((min(100vw,var(--wrap)) - 2*var(--g)) / 4.9)/.8 var(-
 .nf .d{font-size:clamp(90px,22vw,260px);color:var(--ac)}
 .split.one{grid-template-columns:minmax(0,1fr)}
 @media (min-width:901px){.only-m{display:none}}
+
+/* первые экраны проектов на телефоне: короткое имя продукта — крупно */
+@media (max-width:900px){.page-hero:is(.kanri,.zq,.rs) h1{font-size:clamp(44px,14vw,64px)}}
+/* после текста страницы вопросы идут без двойного отступа */
+section:has(> .wrap > .prose) + section[aria-labelledby="faq-h"]{padding-top:0}
